@@ -1,0 +1,375 @@
+@import "tailwindcss";
+
+/* ============================================================
+   TAILWIND v4 — DESIGN TOKENS VIA @theme
+   Paleta oficial da campanha:
+   - Azul:    #1C2B66
+   - Amarelo: #EFC95E
+   - Branco:  #FFFFFF
+   ============================================================ */
+@theme {
+  /* Paleta primária — Azul campanha (#1C2B66) */
+  --color-primary-50: #EEF0F7;
+  --color-primary-100: #D8DDED;
+  --color-primary-200: #B1BBDB;
+  --color-primary-300: #8A99C9;
+  --color-primary-400: #6377B7;
+  --color-primary-500: #3C55A5;
+  --color-primary-600: #2A3F88;
+  --color-primary-700: #1C2B66;
+  --color-primary-800: #16224F;
+  --color-primary-900: #101838;
+  --color-primary-950: #0A0F24;
+  --color-primary: #1C2B66;
+
+  /* Acento — Amarelo campanha (#EFC95E) */
+  --color-accent-50: #FEF9EC;
+  --color-accent-100: #FDF1D0;
+  --color-accent-200: #FBE6A8;
+  --color-accent-300: #F8D97A;
+  --color-accent-400: #F5CF68;
+  --color-accent-500: #EFC95E;
+  --color-accent-600: #D4A93A;
+  --color-accent-700: #B08A28;
+  --color-accent-800: #8C6C1F;
+  --color-accent-900: #6B5218;
+  --color-accent: #EFC95E;
+
+  /* Saúde — Verde */
+  --color-health-light: #D1FAE5;
+  --color-health: #10B981;
+  --color-health-dark: #065F46;
+
+  /* Juventude — Roxo */
+  --color-youth-light: #EDE9FE;
+  --color-youth: #8B5CF6;
+  --color-youth-dark: #4C1D95;
+
+  /* Tipografia */
+  --font-sans: var(--font-inter, system-ui, sans-serif);
+  --font-display: var(--font-outfit, system-ui, sans-serif);
+
+  /* Gradientes de background — baseados na paleta oficial */
+  --background-image-gradient-hero: linear-gradient(135deg, #0A0F24 0%, #1C2B66 45%, #2A3F88 75%, #3C55A5 100%);
+  --background-image-gradient-cta: linear-gradient(90deg, #EFC95E 0%, #D4A93A 100%);
+  --background-image-gradient-health: linear-gradient(135deg, #065F46 0%, #10B981 100%);
+  --background-image-gradient-youth: linear-gradient(135deg, #4C1D95 0%, #8B5CF6 100%);
+  --background-image-gradient-card: linear-gradient(135deg, rgba(28,43,102,0.85) 0%, rgba(22,34,79,0.7) 100%);
+
+  /* Sombras customizadas */
+  --shadow-glow-accent: 0 0 40px rgba(239, 201, 94, 0.35);
+  --shadow-glow-primary: 0 0 40px rgba(28, 43, 102, 0.25);
+  --shadow-glow-health: 0 0 30px rgba(16, 185, 129, 0.3);
+  --shadow-glow-youth: 0 0 30px rgba(139, 92, 246, 0.3);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 8px 40px rgba(0, 0, 0, 0.14);
+
+  /* Border radius */
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-4xl: 2rem;
+
+  /* Animações */
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-pulse-slow: pulse-slow 3s ease-in-out infinite;
+  --animate-shimmer: shimmer 1.5s infinite;
+  --animate-fade-in: fade-in 0.5s ease-in-out;
+  --animate-fade-up: fade-up 0.6s ease-out;
+  --animate-scale-in: scale-in 0.4s ease-out;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  @keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes fade-up {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scale-in {
+    0% { opacity: 0; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #F8FAFC;
+    color: #1C2B66;
+    font-family: var(--font-sans);
+  }
+
+  .dark body {
+    background-color: #0A0F24;
+    color: #F8FAFC;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+
+  /* Scrollbar customizada */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #F1F5F9; }
+  ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb:hover { background: #EFC95E; }
+}
+
+/* ============================================================
+   COMPONENTES UTILITÁRIOS
+   ============================================================ */
+@layer components {
+
+  /* Container */
+  .container-site {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-site { padding-left: 1.5rem; padding-right: 1.5rem; }
+  }
+  @media (min-width: 1024px) {
+    .container-site { padding-left: 2rem; padding-right: 2rem; }
+  }
+
+  /* Botão primário — Amarelo campanha + texto azul (como o logo VEM) */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    background-color: #EFC95E;
+    color: #1C2B66;
+    font-weight: 600;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(239, 201, 94, 0.4);
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary:hover {
+    background-color: #D4A93A;
+    box-shadow: 0 6px 20px rgba(239, 201, 94, 0.5);
+    transform: translateY(-1px);
+  }
+
+  /* Botão secondary */
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    border: 2px solid #E2E8F0;
+    color: #334155;
+    font-weight: 600;
+    transition: all 0.2s;
+    cursor: pointer;
+    background: transparent;
+    text-decoration: none;
+  }
+  .btn-secondary:hover {
+    background-color: #F1F5F9;
+  }
+  .dark .btn-secondary {
+    border-color: #334155;
+    color: #E2E8F0;
+  }
+  .dark .btn-secondary:hover {
+    background-color: #1E293B;
+  }
+
+  /* Botão WhatsApp */
+  .btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    background-color: #22C55E;
+    color: white;
+    font-weight: 600;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .btn-whatsapp:hover {
+    background-color: #16A34A;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+  }
+
+  /* Card */
+  .card {
+    background-color: white;
+    border-radius: 1rem;
+    border: 1px solid #F1F5F9;
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s;
+  }
+  .dark .card {
+    background-color: #101838;
+    border-color: #1E293B;
+  }
+  .card:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  /* Card de bandeira */
+  .bandeira-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    transition: all 0.3s;
+  }
+  .bandeira-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  }
+
+  /* Section title */
+  .section-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #1C2B66;
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+  }
+  .dark .section-title {
+    color: white;
+  }
+  @media (min-width: 640px) { .section-title { font-size: 2.5rem; } }
+  @media (min-width: 1024px) { .section-title { font-size: 3rem; } }
+
+  .section-subtitle {
+    font-size: 1.125rem;
+    color: #64748B;
+    margin-top: 1rem;
+    max-width: 42rem;
+  }
+  .dark .section-subtitle {
+    color: #94A3B8;
+  }
+
+  /* Badge */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Linha decorativa */
+  .section-line {
+    width: 4rem;
+    height: 0.25rem;
+    background-color: #EFC95E;
+    border-radius: 9999px;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Input */
+  .input-field {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid #E2E8F0;
+    background-color: white;
+    color: #1C2B66;
+    transition: all 0.2s;
+    outline: none;
+    font-size: 0.875rem;
+  }
+  .input-field::placeholder { color: #94A3B8; }
+  .input-field:focus {
+    border-color: #EFC95E;
+    box-shadow: 0 0 0 3px rgba(239, 201, 94, 0.2);
+  }
+  .dark .input-field {
+    background-color: #101838;
+    border-color: #334155;
+    color: white;
+  }
+  .dark .input-field:focus {
+    border-color: #EFC95E;
+  }
+
+  /* Nav link */
+  .nav-link {
+    color: #475569;
+    font-weight: 500;
+    transition: color 0.2s;
+    text-decoration: none;
+  }
+  .nav-link:hover { color: #1C2B66; }
+  .dark .nav-link { color: #94A3B8; }
+  .dark .nav-link:hover { color: white; }
+
+  /* Glass morphism */
+  .glass {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .glass-dark {
+    background: rgba(0,0,0,0.2);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(90deg, #EFC95E, #D4A93A);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .gradient-text-blue {
+    background: linear-gradient(90deg, #6377B7, #1C2B66);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Text balance */
+  .text-balance { text-wrap: balance; }
+}
