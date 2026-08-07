@@ -1,0 +1,29 @@
+{
+  "name": "Brivaldo Marques — Vereador de Maceió e Alagoas",
+  "short_name": "Brivaldo Marques",
+  "description": "Vereador de Maceió e pré-candidato a Deputado Estadual. Saúde e Juventude para Maceió, região metropolitana e Alagoas.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1C2B66",
+  "theme_color": "#1C2B66",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

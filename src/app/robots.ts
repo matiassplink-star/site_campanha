@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
+import { SITE_CONFIG } from "@/lib/constants";
 
 export default function robots(): MetadataRoute.Robots {
+  const base = SITE_CONFIG.url;
+
   return {
     rules: [
       {
@@ -8,7 +11,13 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         disallow: ["/admin/", "/api/"],
       },
+      {
+        userAgent: "Googlebot",
+        allow: "/",
+        disallow: ["/admin/", "/api/"],
+      },
     ],
-    sitemap: `${process.env.NEXT_PUBLIC_SITE_URL || "https://brivaldoMarques.com.br"}/sitemap.xml`,
+    sitemap: `${base}/sitemap.xml`,
+    host: base,
   };
 }

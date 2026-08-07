@@ -7,18 +7,14 @@ import VideoSection from "@/components/home/VideoSection";
 import BandeirasSection from "@/components/home/BandeirasSection";
 import BlogSection from "@/components/home/BlogSection";
 import ContactSection from "@/components/home/ContactSection";
-import { SITE_CONFIG } from "@/lib/constants";
+import RegionSeoSection from "@/components/home/RegionSeoSection";
+import { buildPageMetadata, DEFAULT_DESCRIPTION, DEFAULT_TITLE } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: `${SITE_CONFIG.name} — Vereador de Maceió`,
-  description: SITE_CONFIG.description,
-  openGraph: {
-    title: `${SITE_CONFIG.name} — Vereador de Maceió`,
-    description: SITE_CONFIG.description,
-    url: SITE_CONFIG.url,
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: DEFAULT_TITLE,
+  description: DEFAULT_DESCRIPTION,
+  path: "/",
+});
 
 export default function HomePage() {
   return (
@@ -30,6 +26,7 @@ export default function HomePage() {
       <BandeirasSection />
       <BlogSection />
       <ContactSection />
+      <RegionSeoSection />
       <Footer />
     </main>
   );

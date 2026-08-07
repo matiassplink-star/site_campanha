@@ -2,10 +2,17 @@
 
 export const SITE_CONFIG = {
   name: "Brivaldo Marques",
-  title: "Brivaldo Marques — Vereador de Maceió",
+  title:
+    "Brivaldo Marques | Vereador de Maceió e Alagoas — Saúde e Juventude",
   description:
-    "Brivaldo Marques, Vereador de Maceió e pré-candidato a Deputado Estadual. Saúde e Juventude como prioridades para Alagoas.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://brivaldoMarques.com.br",
+    "Brivaldo Marques, Vereador de Maceió e pré-candidato a Deputado Estadual por Alagoas. Saúde e Juventude para Maceió, região metropolitana e todos os municípios alagoanos.",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://brivaldomarques.com.br",
+  locale: "pt_BR",
+  language: "pt-BR",
+  region: "BR-AL",
+  city: "Maceió",
+  state: "Alagoas",
+  country: "Brasil",
   instagram: "https://instagram.com/brivaldo.marques",
   instagramHandle: "@brivaldo.marques",
   whatsappDefault: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "5582999999999",
