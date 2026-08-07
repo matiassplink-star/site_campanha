@@ -1,13 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { 
-  Users, 
-  FileText, 
-  MessageSquare, 
+import {
+  Users,
+  FileText,
+  MessageSquare,
   Eye,
   TrendingUp,
-  Clock
+  Clock,
+  Image as ImageIcon,
+  Calendar,
+  Settings,
 } from "lucide-react";
 
 export default function AdminDashboardPage() {
