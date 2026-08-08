@@ -91,10 +91,9 @@ export default function AdminApoiadoresPage() {
   const [savingNote, setSavingNote] = useState(false);
   const [updatingStatus, setUpdatingStatus] = useState<string | null>(null);
 
-  const supabase = createClient();
-
   const fetchApoiadores = useCallback(async () => {
     setLoading(true);
+    const supabase = createClient();
     const { data, error } = await supabase
       .from("apoiadores")
       .select("*")
@@ -106,7 +105,7 @@ export default function AdminApoiadoresPage() {
       setApoiadores(data || []);
     }
     setLoading(false);
-  }, [supabase]);
+  }, []);
 
   useEffect(() => {
     fetchApoiadores();
@@ -134,6 +133,7 @@ export default function AdminApoiadoresPage() {
 
   const updateStatus = async (id: string, status: Status) => {
     setUpdatingStatus(id);
+    const supabase = createClient();
     const { error } = await supabase
       .from("apoiadores")
       .update({ status })
@@ -151,6 +151,7 @@ export default function AdminApoiadoresPage() {
 
   const saveNote = async (id: string) => {
     setSavingNote(true);
+    const supabase = createClient();
     const { error } = await supabase
       .from("apoiadores")
       .update({ notes: editingNote })
@@ -168,6 +169,7 @@ export default function AdminApoiadoresPage() {
 
   const deleteApoiador = async (id: string) => {
     if (!confirm("Tem certeza que deseja excluir este apoiador?")) return;
+    const supabase = createClient();
     const { error } = await supabase.from("apoiadores").delete().eq("id", id);
     if (error) {
       toast.error("Erro ao excluir");

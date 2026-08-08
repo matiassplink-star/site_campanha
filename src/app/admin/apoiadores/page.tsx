@@ -1,3 +1,5 @@
+"use client";
+
 import dynamic from "next/dynamic";
 
 // Importa o componente sem SSR — evita que o Next.js tente
