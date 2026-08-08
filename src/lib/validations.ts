@@ -1,5 +1,8 @@
 import { z } from "zod";
 
+export const POSTS_PER_PAGE = 9;
+export const GALLERY_ITEMS_PER_PAGE = 24;
+
 /** Schema de validação do formulário de contato */
 export const contactSchema = z.object({
   name: z
@@ -73,3 +76,38 @@ export const settingsSchema = z.object({
 });
 
 export type SettingsFormData = z.infer<typeof settingsSchema>;
+
+/** Schema de validação do formulário de apoiador */
+export const apoiadorSchema = z.object({
+  name: z
+    .string()
+    .min(2, "Nome deve ter pelo menos 2 caracteres")
+    .max(100, "Nome muito longo"),
+  email: z
+    .string()
+    .email("E-mail inválido")
+    .optional()
+    .or(z.literal("")),
+  phone: z
+    .string()
+    .min(10, "Telefone inválido")
+    .max(20, "Telefone inválido")
+    .regex(/^[\d\s\(\)\-\+]+$/, "Telefone inválido"),
+  city: z.string().min(2, "Cidade obrigatória").max(100, "Cidade muito longa"),
+  neighborhood: z
+    .string()
+    .max(100, "Bairro muito longo")
+    .optional()
+    .or(z.literal("")),
+  how_help: z
+    .enum(["divulgacao", "evento", "doacao", "voluntario", "outro"])
+    .optional(),
+  lgpd_consent: z.literal(true, {
+    message: "Você precisa aceitar a Política de Privacidade para continuar",
+  }),
+  whatsapp_authorization: z.literal(true, {
+    message: "Você precisa autorizar o contato via WhatsApp para continuar",
+  }),
+});
+
+export type ApoiadorFormData = z.infer<typeof apoiadorSchema>;

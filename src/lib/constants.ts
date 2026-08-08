@@ -15,7 +15,7 @@ export const SITE_CONFIG = {
   country: "Brasil",
   instagram: "https://instagram.com/brivaldo.marques",
   instagramHandle: "@brivaldo.marques",
-  whatsappDefault: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "5582999999999",
+  whatsappDefault: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "558231990122",
   whatsappMessage:
     process.env.NEXT_PUBLIC_WHATSAPP_MESSAGE ||
     "Olá, gostaria de falar com a equipe do Brivaldo Marques.",
@@ -30,6 +30,7 @@ export const NAVIGATION_ITEMS = [
   { label: "Blog", href: "/blog" },
   { label: "Galeria", href: "/galeria" },
   { label: "Agenda", href: "/agenda" },
+  { label: "Seja Apoiador", href: "/seja-apoiador" },
   { label: "Contato", href: "/contato" },
 ] as const;
 

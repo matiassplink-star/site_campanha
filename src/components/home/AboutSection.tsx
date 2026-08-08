@@ -8,23 +8,31 @@ import { ArrowRight, MapPin } from "lucide-react";
 
 const timelineEvents = [
   {
-    year: "[ANO]",
-    title: "Início na vida pública",
+    year: "2017",
+    title: "Prefeito Comunitário do Benedito Bentes",
     description:
-      "[INSERIR: Informação sobre o início da trajetória política de Brivaldo Marques.]",
+      "Eleito prefeito comunitário do Benedito Bentes, liderou o bairro com determinação, implantando projetos de esporte, cultura, saúde e educação, com foco especial na juventude e no desenvolvimento humano.",
     icon: "🌱",
   },
   {
-    year: "[ANO]",
+    year: "2020",
     title: "Eleito Vereador de Maceió",
-    description: "[INSERIR: Detalhes sobre a eleição para vereador de Maceió.]",
+    description:
+      "Ampliou sua missão ao ser eleito vereador de Maceió com 4.890 votos, levando para a Câmara Municipal as demandas da população.",
     icon: "🗳️",
+  },
+  {
+    year: "2024",
+    title: "Reeleito com expressivos 8.671 votos",
+    description:
+      "Reafirmou a confiança da população com um crescimento significativo de votos, consolidando seu mandato em defesa da saúde e juventude.",
+    icon: "⭐",
   },
   {
     year: "Hoje",
     title: "Mandato em ação",
     description:
-      "Projetos de lei, fiscalização e ações em prol da saúde e juventude maceioense.",
+      "Projetos de lei, fiscalização e ações concretas em prol da saúde, juventude e qualidade de vida dos maceioenses e alagoanos.",
     icon: "⚡",
     current: true,
   },
@@ -91,16 +99,16 @@ export default function AboutSection() {
 
             <div className="space-y-4 text-slate-600 dark:text-slate-400 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
               <p>
-                <span className="text-slate-400 text-sm italic">
-                  [INSERIR: Biografia oficial fornecida pela campanha de Brivaldo
-                  Marques. Este texto pode ser editado diretamente pelo painel
-                  administrativo, sem necessidade de alterar o código.]
-                </span>
+                Natural de Colônia Leopoldina, <strong className="text-slate-800 dark:text-slate-200">Brivaldo Marques Silva Neto</strong>, 32 anos,
+                casado, pai de dois filhos — João Arthur e Lucca —, formado em
+                Fisioterapia pela UNCISAL (Universidade Estadual de Ciências da
+                Saúde de Alagoas).
               </p>
               <p>
-                Brivaldo Marques é Vereador de Maceió e pré-candidato a Deputado
-                Estadual por Alagoas. Suas principais bandeiras são Saúde e
-                Juventude.
+                Em 2017, foi eleito prefeito comunitário do Benedito Bentes. Em 2020,
+                foi eleito Vereador de Maceió com 4.890 votos. Em 2024, foi{" "}
+                <strong className="text-slate-800 dark:text-slate-200">reeleito com expressivos 8.671 votos</strong>,
+                reafirmando a confiança da população e suas bandeiras de Saúde e Juventude.
               </p>
             </div>
 

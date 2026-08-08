@@ -7,12 +7,6 @@ import Link from "next/link";
 import { SITE_CONFIG } from "@/lib/constants";
 import { generateWhatsAppUrl } from "@/lib/utils";
 
-const stats = [
-  { value: "1+", label: "Mandato ativo" },
-  { value: "2", label: "Bandeiras" },
-  { value: "AL", label: "Por Alagoas" },
-];
-
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: (i: number) => ({
@@ -123,25 +117,7 @@ export default function HeroSection() {
               </Link>
             </motion.div>
 
-            {/* Stats */}
-            <motion.div
-              custom={4}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              className="mt-10 sm:mt-14 grid grid-cols-3 gap-3 sm:flex sm:items-center sm:justify-center lg:justify-start sm:gap-6 lg:gap-8"
-            >
-              {stats.map((stat, i) => (
-                <div key={i} className="text-center lg:text-left">
-                  <div className="text-2xl sm:text-3xl font-bold text-white font-display">
-                    {stat.value}
-                  </div>
-                  <div className="text-[11px] sm:text-sm text-white/60 mt-1 leading-snug">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </motion.div>
+
 
             {/* Bandeiras chips */}
             <motion.div

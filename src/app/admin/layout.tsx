@@ -9,7 +9,8 @@ import {
   Settings, 
   LogOut,
   LayoutDashboard,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Heart,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -36,6 +37,7 @@ export default function AdminLayout({
 
   const menuItems = [
     { icon: LayoutDashboard, label: "Dashboard", href: "/admin/dashboard" },
+    { icon: Heart, label: "Apoiadores", href: "/admin/apoiadores", badge: true },
     { icon: FileText, label: "Blog & Notícias", href: "/admin/blog" },
     { icon: ImageIcon, label: "Galeria", href: "/admin/galeria" },
     { icon: Calendar, label: "Agenda", href: "/admin/agenda" },

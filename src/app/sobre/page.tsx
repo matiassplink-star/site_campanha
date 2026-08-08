@@ -42,16 +42,27 @@ export default function SobrePage() {
             </div>
             <div className="space-y-4 text-slate-600 dark:text-slate-400 leading-relaxed text-center lg:text-left">
               <p>
-                Brivaldo Marques atua em Maceió com foco em políticas públicas
-                de saúde e oportunidades para a juventude. O mandato busca
-                resultados concretos para as famílias maceioenses e diálogo
-                permanente com a Região Metropolitana de Maceió e com os
-                municípios de Alagoas.
+                Natural de Colônia Leopoldina, <strong className="text-slate-800 dark:text-slate-200">Brivaldo Marques Silva Neto</strong>, 32 anos,
+                casado, pai de dois filhos — João Arthur e Lucca —, formado em Fisioterapia
+                pela UNCISAL (Universidade Estadual de Ciências da Saúde de Alagoas).
               </p>
               <p>
-                Se você é de Rio Largo, Marechal Deodoro, Arapiraca, União dos
-                Palmares, Penedo, Maragogi ou de qualquer cidade alagoana, este
-                espaço é para acompanhar o trabalho e falar com a equipe.
+                Em 2017, foi eleito prefeito comunitário do Benedito Bentes, onde liderou
+                com determinação até o início das eleições de 2020. Durante esse período,
+                implantou projetos que promoveram o esporte, a cultura, a saúde e a educação,
+                com um olhar especial para a juventude e o desenvolvimento humano.
+              </p>
+              <p>
+                Nas eleições de 2020, Brivaldo ampliou sua missão ao ser eleito Vereador de
+                Maceió com <strong className="text-slate-800 dark:text-slate-200">4.890 votos</strong>.
+                Em 2024, foi reeleito com expressivos{" "}
+                <strong className="text-slate-800 dark:text-slate-200">8.671 votos</strong>,
+                reafirmando a confiança da população e seu compromisso com a Saúde e a Juventude.
+              </p>
+              <p>
+                Se você é de Rio Largo, Marechal Deodoro, Arapiraca, União dos Palmares,
+                Penedo, Maragogi ou de qualquer cidade alagoana, este espaço é para
+                acompanhar o trabalho e falar com a equipe.
               </p>
             </div>
           </div>
