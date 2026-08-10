@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Save, Settings, Globe, Phone, Instagram, Facebook, Youtube } from "lucide-react";
+import { Save, Settings, Globe, Phone, Share2, Video, MessageSquare } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function ConfiguracoesClient() {
@@ -73,7 +73,7 @@ export default function ConfiguracoesClient() {
           </div>
 
           <h2 className="text-lg font-bold text-slate-900 font-display border-b border-slate-100 pb-3 pt-4 flex items-center gap-2">
-            <Instagram className="text-pink-600" size={20} />
+            <Share2 className="text-accent-500" size={20} />
             Redes Sociais
           </h2>
 
