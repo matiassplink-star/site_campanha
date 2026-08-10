@@ -26,7 +26,6 @@ export const NAVIGATION_ITEMS = [
   { label: "Sobre", href: "/sobre" },
   { label: "Seja Apoiador", href: "/seja-apoiador" },
   { label: "Notícias", href: "/blog" },
-  { label: "Contato", href: "/contato" },
 ] as const;
 
 export const ADMIN_NAV_ITEMS = [

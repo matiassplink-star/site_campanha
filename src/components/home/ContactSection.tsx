@@ -124,18 +124,6 @@ export default function ContactSection() {
                   </a>
                 </div>
               </div>
-
-              <div className="flex items-center gap-4 p-5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-                <div className="w-12 h-12 rounded-xl bg-accent-500 flex items-center justify-center flex-shrink-0">
-                  <MapPin size={24} className="text-white" />
-                </div>
-                <div>
-                  <p className="font-semibold text-slate-900 dark:text-white">Localização</p>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">
-                    Maceió, Alagoas
-                  </p>
-                </div>
-              </div>
             </div>
           </motion.div>
 
