@@ -26,7 +26,6 @@ export default function HomePage() {
       <BandeirasSection />
       <BlogSection />
       <ContactSection />
-      <RegionSeoSection />
       <Footer />
     </main>
   );

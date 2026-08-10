@@ -24,13 +24,8 @@ export const SITE_CONFIG = {
 export const NAVIGATION_ITEMS = [
   { label: "Home", href: "/" },
   { label: "Sobre", href: "/sobre" },
-  { label: "História", href: "/historia" },
-  { label: "Bandeiras", href: "/bandeiras" },
-  { label: "Projetos", href: "/projetos" },
-  { label: "Blog", href: "/blog" },
-  { label: "Galeria", href: "/galeria" },
-  { label: "Agenda", href: "/agenda" },
   { label: "Seja Apoiador", href: "/seja-apoiador" },
+  { label: "Notícias", href: "/blog" },
   { label: "Contato", href: "/contato" },
 ] as const;
 

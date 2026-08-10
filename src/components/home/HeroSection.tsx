@@ -1,10 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, ChevronDown, Star } from "lucide-react";
+import { ChevronDown, CheckCircle, Loader2 } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { SITE_CONFIG } from "@/lib/constants";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
+import { apoiadorSchema, type ApoiadorFormData } from "@/lib/validations";
 import { generateWhatsAppUrl } from "@/lib/utils";
 
 const fadeUp = {
@@ -16,197 +20,357 @@ const fadeUp = {
   }),
 };
 
-export default function HeroSection() {
+function HeroForm() {
+  const [submitted, setSubmitted] = useState(false);
+  const [registeredName, setRegisteredName] = useState("");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<ApoiadorFormData>({
+    resolver: zodResolver(apoiadorSchema),
+    defaultValues: {
+      lgpd_consent: undefined,
+      whatsapp_authorization: undefined,
+    },
+  });
+
   const whatsappUrl = generateWhatsAppUrl(
-    SITE_CONFIG.whatsappDefault,
-    SITE_CONFIG.whatsappMessage
+    "558231990122",
+    `Olá! Me cadastrei como apoiador(a) do Brivaldo Marques. Quero ajudar na campanha!`
   );
 
+  const onSubmit = async (data: ApoiadorFormData) => {
+    try {
+      const response = await fetch("/api/apoiador", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) throw new Error("Erro ao salvar cadastro");
+      setRegisteredName(data.name.split(" ")[0]);
+      setSubmitted(true);
+      reset();
+      toast.success("Cadastro realizado! Bem-vindo(a) ao time!");
+    } catch {
+      toast.error("Erro ao realizar cadastro. Tente pelo WhatsApp.");
+    }
+  };
+
+  if (submitted) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="text-center py-8"
+      >
+        <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+          <CheckCircle size={36} className="text-green-500" />
+        </div>
+        <h3 className="text-xl font-bold text-slate-900 font-display mb-2">
+          {registeredName ? `Obrigado, ${registeredName}!` : "Cadastro realizado!"}
+        </h3>
+        <p className="text-slate-500 text-sm mb-6">
+          Bem-vindo(a) ao time do Brivaldo! Em breve entraremos em contato.
+        </p>
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl font-bold text-white transition-all"
+          style={{ backgroundColor: "#22C55E" }}
+        >
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+          Abrir WhatsApp
+        </a>
+      </motion.div>
+    );
+  }
+
+  return (
+    <form id="hero-apoiador-form" onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <div className="text-center mb-4">
+        <h2 className="text-2xl font-bold text-slate-900 font-display uppercase tracking-tight">Seja Apoiador!</h2>
+      </div>
+
+      {/* Nome */}
+      <div>
+        <label htmlFor="hero-name" className="block text-xs font-semibold text-slate-700 mb-1">
+          Nome completo <span className="text-red-500">*</span>
+        </label>
+        <input
+          {...register("name")}
+          id="hero-name"
+          placeholder="Seu nome completo"
+          className="w-full px-3 py-2.5 text-sm rounded-lg border border-slate-200 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+          style={{ color: "#1C2B66" }}
+        />
+        {errors.name && (
+          <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
+        )}
+      </div>
+
+      {/* WhatsApp */}
+      <div>
+        <label htmlFor="hero-phone" className="block text-xs font-semibold text-slate-700 mb-1">
+          WhatsApp <span className="text-red-500">*</span>
+        </label>
+        <input
+          {...register("phone")}
+          id="hero-phone"
+          placeholder="(82) 99999-9999"
+          className="w-full px-3 py-2.5 text-sm rounded-lg border border-slate-200 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+          style={{ color: "#1C2B66" }}
+        />
+        {errors.phone && (
+          <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>
+        )}
+      </div>
+
+      {/* Cidade */}
+      <div>
+        <label htmlFor="hero-city" className="block text-xs font-semibold text-slate-700 mb-1">
+          Cidade <span className="text-red-500">*</span>
+        </label>
+        <input
+          {...register("city")}
+          id="hero-city"
+          placeholder="Sua cidade"
+          className="w-full px-3 py-2.5 text-sm rounded-lg border border-slate-200 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+          style={{ color: "#1C2B66" }}
+        />
+        {errors.city && (
+          <p className="text-red-500 text-xs mt-1">{errors.city.message}</p>
+        )}
+      </div>
+
+      {/* E-mail opcional */}
+      <div>
+        <label htmlFor="hero-email" className="block text-xs font-semibold text-slate-700 mb-1">
+          E-mail <span className="text-slate-400 font-normal">(opcional)</span>
+        </label>
+        <input
+          {...register("email")}
+          id="hero-email"
+          type="email"
+          placeholder="voce@email.com"
+          className="w-full px-3 py-2.5 text-sm rounded-lg border border-slate-200 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+          style={{ color: "#1C2B66" }}
+        />
+      </div>
+
+      {/* LGPD */}
+      <label
+        htmlFor="hero-lgpd"
+        className="flex items-start gap-2 cursor-pointer"
+      >
+        <input
+          type="checkbox"
+          id="hero-lgpd"
+          {...register("lgpd_consent")}
+          className="mt-0.5 w-4 h-4 rounded border-slate-300 flex-shrink-0 cursor-pointer"
+          style={{ accentColor: "#1C2B66" }}
+        />
+        <span className="text-xs text-slate-500 leading-relaxed">
+          Confirmo que os dados são meus e autorizo o tratamento conforme a{" "}
+          <a
+            href="/politica-de-privacidade"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline font-medium"
+            style={{ color: "#1C2B66" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            Política de Privacidade
+          </a>{" "}
+          e a LGPD. <span className="text-red-500">*</span>
+        </span>
+      </label>
+      {errors.lgpd_consent && (
+        <p className="text-red-500 text-xs -mt-2">{errors.lgpd_consent.message}</p>
+      )}
+
+      {/* WhatsApp authorization */}
+      <label
+        htmlFor="hero-whatsapp-auth"
+        className="flex items-start gap-2 cursor-pointer"
+      >
+        <input
+          type="checkbox"
+          id="hero-whatsapp-auth"
+          {...register("whatsapp_authorization")}
+          className="mt-0.5 w-4 h-4 rounded border-slate-300 flex-shrink-0 cursor-pointer"
+          style={{ accentColor: "#22C55E" }}
+        />
+        <span className="text-xs text-slate-500 leading-relaxed">
+          Autorizo contato via <strong className="text-green-600">WhatsApp</strong>. <span className="text-red-500">*</span>
+        </span>
+      </label>
+      {errors.whatsapp_authorization && (
+        <p className="text-red-500 text-xs -mt-2">{errors.whatsapp_authorization.message}</p>
+      )}
+
+      <button
+        type="submit"
+        id="hero-apoiador-submit-btn"
+        disabled={isSubmitting}
+        className="w-full py-3.5 rounded-xl font-bold text-base transition-all hover:opacity-90 flex items-center justify-center gap-2 shadow-lg"
+        style={{ backgroundColor: "#2563eb", color: "white" }}
+      >
+        {isSubmitting ? (
+          <>
+            <Loader2 size={18} className="animate-spin" />
+            Cadastrando...
+          </>
+        ) : (
+          "Quero entrar pro time"
+        )}
+      </button>
+    </form>
+  );
+}
+
+export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative min-h-[100svh] flex items-center overflow-x-hidden"
-      style={{
-        background:
-          "linear-gradient(135deg, #0A0F24 0%, #1C2B66 45%, #2A3F88 75%, #3C55A5 100%)",
-      }}
+      className="relative min-h-[100svh] flex items-center overflow-hidden"
+      style={{ backgroundColor: "#1C2B66" }}
     >
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Diagonal geometric elements — inspired by Henrique Costa */}
+      {/* Diagonal geometric elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ backgroundColor: "#0f3a8b" }}>
+        {/* Green shape */}
+        <div 
+          className="absolute -top-10 -bottom-10 left-[15%] lg:left-[25%] w-[35%] shadow-2xl" 
+          style={{ backgroundColor: "#12963f", transform: "skewX(-15deg)", transformOrigin: "bottom" }} 
+        />
+        {/* Yellow shape */}
+        <div 
+          className="absolute -top-10 -bottom-10 left-[45%] lg:left-[55%] w-[12%] shadow-xl" 
+          style={{ backgroundColor: "#f5ca12", transform: "skewX(-15deg)", transformOrigin: "bottom" }} 
+        />
+        {/* Light Blue shape */}
+        <div 
+          className="absolute -top-10 -bottom-10 left-[55%] lg:left-[65%] right-[-50%] shadow-2xl" 
+          style={{ backgroundColor: "#1565d8", transform: "skewX(-15deg)", transformOrigin: "bottom" }} 
+        />
+        
+        {/* Subtle grid */}
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)`,
             backgroundSize: "50px 50px",
           }}
         />
-        <div className="absolute top-1/4 right-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-primary-500/15 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 left-1/4 w-56 sm:w-80 h-56 sm:h-80 bg-accent-500/15 rounded-full blur-3xl" />
       </div>
 
-      <div className="container-site relative z-10 w-full pt-24 sm:pt-28 pb-20 sm:pb-16">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
-          {/* Text */}
-          <div className="text-center lg:text-left order-2 lg:order-1">
+      <div className="container-site relative z-10 w-full pt-20 sm:pt-24 pb-10">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 min-h-[calc(100svh-5rem)]">
+
+          {/* Left: Text content */}
+          <div className="w-full lg:w-[45%] text-center lg:text-left z-20 pb-6 lg:pb-0">
+            {/* Badge */}
             <motion.div
               custom={0}
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white/90 text-xs sm:text-sm font-medium mb-6 sm:mb-8 backdrop-blur-sm max-w-full"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-bold mb-6 sm:mb-8"
+              style={{ backgroundColor: "rgba(255,255,255,0.2)", color: "white" }}
             >
-              <Star size={14} className="text-accent-400 fill-accent-400 flex-shrink-0" />
-              <span className="text-left">
-                Vereador de Maceió · Pré-candidato a Deputado Estadual
-              </span>
+              Agora é oficial • Alagoas 2026
             </motion.div>
 
-            <motion.h1
+            {/* Headline */}
+            <motion.div
               custom={1}
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="text-[1.75rem] leading-tight sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white font-display sm:leading-[1.1] text-balance"
             >
-              Vereador que{" "}
-              <span className="bg-gradient-to-r from-accent-400 to-accent-500 bg-clip-text text-transparent">
-                transforma
-              </span>{" "}
-              Maceió em cidade de todos
-            </motion.h1>
+              <h1 className="font-display font-black italic leading-[0.95] text-[2.5rem] xs:text-[3rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[5.5rem] uppercase mb-1" style={{ color: "#f5ca12" }}>
+                AGORA É
+              </h1>
+              <h1 className="font-display font-black italic leading-[0.95] text-[2.5rem] xs:text-[3rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[5.5rem] text-white uppercase mb-4">
+                OFICIAL
+              </h1>
+              <p className="text-white font-display font-bold text-xl sm:text-2xl lg:text-3xl uppercase tracking-wide mb-2 leading-tight">
+                CANDIDATO A <br className="hidden lg:block" />
+                <span style={{ color: "#f5ca12" }}>DEPUTADO ESTADUAL</span>
+              </p>
+            </motion.div>
 
+            {/* Quote */}
             <motion.p
               custom={2}
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="mt-5 sm:mt-6 text-base sm:text-lg text-white/70 leading-relaxed max-w-lg mx-auto lg:mx-0"
+              className="mt-6 text-lg sm:text-xl text-white font-bold italic leading-relaxed max-w-lg mx-auto lg:mx-0"
             >
-              Saúde e Juventude como prioridades para um Maceió mais justo,
-              saudável e com oportunidades reais para todos os alagoanos.
+              &ldquo;Ensinar sempre foi minha missão.<br/>
+              Transformar será meu legado.&rdquo;
             </motion.p>
 
-            {/* CTAs — full width no mobile */}
+            {/* Candidato photo on mobile */}
             <motion.div
-              custom={3}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              className="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-stretch sm:items-center justify-center lg:justify-start"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.15 }}
+              className="mt-8 flex justify-center lg:hidden"
             >
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                id="hero-whatsapp-btn"
-                className="btn-whatsapp text-base py-3.5 px-6 sm:px-7 shadow-glow-health justify-center w-full sm:w-auto"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                </svg>
-                Fale pelo WhatsApp
-              </a>
-
-              <Link
-                href="/sobre"
-                id="hero-about-btn"
-                className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 rounded-xl border-2 border-white/30 text-white font-semibold hover:bg-white/10 hover:border-white/50 transition-all duration-200 w-full sm:w-auto"
-              >
-                Conheça a história
-                <ArrowRight size={18} />
-              </Link>
-            </motion.div>
-
-
-
-            {/* Bandeiras chips */}
-            <motion.div
-              custom={5}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              className="mt-6 flex items-center justify-center lg:justify-start gap-2 sm:gap-3 flex-wrap"
-            >
-              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-health/20 border border-health/30">
-                <span className="text-sm">💚</span>
-                <span className="text-health text-xs font-semibold">Saúde</span>
-              </div>
-              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-youth/20 border border-youth/30">
-                <span className="text-sm">💜</span>
-                <span className="text-youth text-xs font-semibold">Juventude</span>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Foto — no mobile fica acima do texto */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="relative flex justify-center lg:justify-end order-1 lg:order-2"
-          >
-            <div className="relative w-[180px] xs:w-[200px] sm:w-[240px] lg:w-[280px]">
-              <div className="absolute -inset-2 rounded-2xl border border-accent-500/25 pointer-events-none hidden sm:block" />
-
-              <div className="relative rounded-2xl overflow-hidden bg-primary shadow-2xl border border-white/10">
+              <div className="relative w-[160px] xs:w-[180px] sm:w-[220px]">
                 <Image
                   src="/images/brivaldo-marques.png"
-                  alt="Brivaldo Marques — Vereador de Maceió"
+                  alt="Brivaldo Marques"
                   width={409}
                   height={611}
                   priority
                   quality={100}
-                  sizes="(max-width: 640px) 180px, (max-width: 1024px) 240px, 280px"
-                  className="w-full h-auto block"
+                  className="w-full h-auto block drop-shadow-2xl"
                 />
               </div>
+            </motion.div>
+          </div>
 
-              <div className="mt-3 sm:mt-4 text-center">
-                <p className="text-white font-display font-bold text-sm sm:text-base leading-tight">
-                  Brivaldo Marques
-                </p>
-                <p className="text-accent-400 text-xs sm:text-sm font-medium">
-                  Vereador de Maceió
-                </p>
-              </div>
-
-              {/* Floating cards — só desktop */}
-              <motion.div
-                animate={{ y: [-4, 4, -4] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -left-12 top-1/4 glass rounded-2xl p-3 shadow-xl hidden xl:block"
-              >
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-full bg-health flex items-center justify-center">
-                    <span className="text-white text-xs">💚</span>
-                  </div>
-                  <div>
-                    <p className="text-white text-xs font-semibold">Saúde</p>
-                    <p className="text-white/60 text-[10px]">Bandeira prioritária</p>
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [4, -4, 4] }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -right-10 bottom-1/3 glass rounded-2xl p-3 shadow-xl hidden xl:block"
-              >
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-full bg-youth flex items-center justify-center">
-                    <span className="text-white text-xs">💜</span>
-                  </div>
-                  <div>
-                    <p className="text-white text-xs font-semibold">Juventude</p>
-                    <p className="text-white/60 text-[10px]">Nosso futuro</p>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
+          {/* Center: Photo (Desktop only) */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="hidden lg:block absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] xl:w-[500px] z-10 pointer-events-none"
+          >
+            <Image
+              src="/images/brivaldo-marques.png"
+              alt="Brivaldo Marques"
+              width={600}
+              height={800}
+              priority
+              quality={100}
+              className="w-full h-auto block drop-shadow-2xl"
+            />
           </motion.div>
+
+          {/* Right: Form card */}
+          <div className="w-full lg:w-[400px] xl:w-[420px] z-20">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="w-full bg-white rounded-2xl shadow-2xl p-6 sm:p-7"
+            >
+              <HeroForm />
+            </motion.div>
+          </div>
         </div>
 
-        {/* Scroll indicator — esconde em telas baixas */}
+        {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

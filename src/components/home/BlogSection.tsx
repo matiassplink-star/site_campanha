@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
@@ -18,42 +18,7 @@ interface Post {
   category?: { name: string; color: string; slug: string };
 }
 
-// Posts de exemplo para a landing — serão substituídos por dados reais do Supabase
-const MOCK_POSTS: Post[] = [
-  {
-    id: "1",
-    title: "Brivaldo Marques apresenta projeto para ampliar UBSs em Maceió",
-    slug: "projeto-ubs-maceio",
-    excerpt:
-      "O vereador Brivaldo Marques apresentou na Câmara Municipal projeto de lei que visa ampliar e modernizar as Unidades Básicas de Saúde nos bairros mais carentes de Maceió.",
-    cover_image: "/images/blog/projeto-ubs-maceio.jpg",
-    published_at: new Date().toISOString(),
-    reading_time: 4,
-    category: { name: "Saúde", color: "#10B981", slug: "saude" },
-  },
-  {
-    id: "2",
-    title: "Programa Juventude Ativa: novas vagas de capacitação profissional",
-    slug: "juventude-ativa-capacitacao",
-    excerpt:
-      "O mandato de Brivaldo Marques lança nova rodada do programa Juventude Ativa, com vagas gratuitas para jovens de 16 a 29 anos em cursos de tecnologia, gastronomia e gestão.",
-    cover_image: "/images/blog/juventude-ativa-capacitacao.jpg",
-    published_at: new Date(Date.now() - 86400000 * 3).toISOString(),
-    reading_time: 3,
-    category: { name: "Juventude", color: "#8B5CF6", slug: "juventude" },
-  },
-  {
-    id: "3",
-    title: "Vereador cobra melhorias no atendimento da saúde mental em Maceió",
-    slug: "saude-mental-maceio",
-    excerpt:
-      "Em sessão na Câmara Municipal, Brivaldo Marques cobrou do executivo municipal melhorias urgentes no atendimento de saúde mental da rede pública de Maceió.",
-    cover_image: "/images/blog/saude-mental-maceio.jpg",
-    published_at: new Date(Date.now() - 86400000 * 7).toISOString(),
-    reading_time: 5,
-    category: { name: "Saúde", color: "#10B981", slug: "saude" },
-  },
-];
+const MOCK_POSTS: Post[] = [];
 
 function PostCard({ post, index }: { post: Post; index: number }) {
   const gradients = [
@@ -118,17 +83,18 @@ function PostCard({ post, index }: { post: Post; index: number }) {
           </span>
         </div>
 
-        <h3 className="font-bold text-slate-900 dark:text-white font-display text-lg leading-snug mb-3 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
+        <h3 className="font-bold text-slate-900 font-display text-lg leading-snug mb-3 transition-colors" style={{ color: "#1C2B66" }}>
           {post.title}
         </h3>
 
-        <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-5">
+        <p className="text-slate-500 text-sm leading-relaxed mb-5">
           {truncate(post.excerpt, 130)}
         </p>
 
         <Link
           href={`/blog/${post.slug}`}
-          className="inline-flex items-center gap-2 text-accent-600 dark:text-accent-400 font-semibold text-sm hover:gap-3 transition-all duration-200"
+          className="inline-flex items-center gap-2 font-semibold text-sm hover:gap-3 transition-all duration-200"
+          style={{ color: "#D4A93A" }}
         >
           Ler mais <ArrowRight size={16} />
         </Link>
@@ -140,9 +106,44 @@ function PostCard({ post, index }: { post: Post; index: number }) {
 export default function BlogSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchPosts() {
+      try {
+        const { createClient } = await import("@/lib/supabase/client");
+        const supabase = createClient();
+        
+        const { data, error } = await supabase
+          .from("posts")
+          .select(`
+            id, title, slug, excerpt, cover_image, published_at, reading_time,
+            category:categories ( name, color, slug )
+          `)
+          .eq("status", "published")
+          .order("published_at", { ascending: false })
+          .limit(3);
+
+        if (!error && data) {
+          // Normalize the relation data if it exists
+          const normalizedData = data.map((post: any) => ({
+            ...post,
+            category: post.category ? (Array.isArray(post.category) ? post.category[0] : post.category) : undefined
+          }));
+          setPosts(normalizedData as Post[]);
+        }
+      } catch (err) {
+        console.error("Error fetching posts:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchPosts();
+  }, []);
 
   return (
-    <section id="blog" ref={ref} className="py-24 bg-white dark:bg-primary-950">
+    <section id="blog" ref={ref} className="py-24" style={{ backgroundColor: "#F4F6FA" }}>
       <div className="container-site">
         {/* Header */}
         <motion.div
@@ -152,12 +153,12 @@ export default function BlogSection() {
           className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4"
         >
           <div>
-            <div className="section-line" />
-            <h2 className="section-title">
+            <p className="text-xs font-bold uppercase tracking-[0.15em] mb-2" style={{ color: "#1C2B66" }}>MANDATO EM AÇÃO</p>
+            <h2 className="text-3xl sm:text-4xl font-black italic font-display mb-2" style={{ color: "#1C2B66" }}>
               Últimas{" "}
-              <span className="gradient-text">Notícias</span>
+              <span style={{ background: "linear-gradient(90deg, #EFC95E, #D4A93A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Notícias</span>
             </h2>
-            <p className="section-subtitle">
+            <p className="text-slate-500 text-base">
               Acompanhe as ações e projetos do mandato.
             </p>
           </div>
@@ -172,9 +173,17 @@ export default function BlogSection() {
 
         {/* Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {MOCK_POSTS.map((post, i) => (
-            <PostCard key={post.id} post={post} index={i} />
-          ))}
+          {loading ? (
+            <div className="col-span-full text-center text-slate-500 py-10">Carregando notícias...</div>
+          ) : posts.length === 0 ? (
+            <div className="col-span-full text-center text-slate-500 py-10">
+              Nenhuma notícia publicada no momento. Volte em breve!
+            </div>
+          ) : (
+            posts.map((post, i) => (
+              <PostCard key={post.id} post={post} index={i} />
+            ))
+          )}
         </div>
       </div>
     </section>

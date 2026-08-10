@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Sun, Moon, ChevronRight } from "lucide-react";
-import { useTheme } from "next-themes";
+import { Menu, X, ChevronRight } from "lucide-react";
 import { NAVIGATION_ITEMS, SITE_CONFIG } from "@/lib/constants";
 import { cn, generateWhatsAppUrl } from "@/lib/utils";
 
@@ -20,15 +20,9 @@ function WhatsAppIcon({ className }: { className?: string }) {
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme();
-
-  const isHome = pathname === "/";
-  const onHero = isHome && !isScrolled;
 
   useEffect(() => {
-    setMounted(true);
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -37,9 +31,7 @@ export default function Header() {
 
   useEffect(() => {
     document.body.style.overflow = isMobileOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, [isMobileOpen]);
 
   const whatsappUrl = generateWhatsAppUrl(
@@ -56,42 +48,23 @@ export default function Header() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           isScrolled || isMobileOpen
-            ? "bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl shadow-lg border-b border-slate-100 dark:border-slate-800"
-            : "bg-transparent"
+            ? "bg-primary shadow-lg"
+            : "bg-primary/95 backdrop-blur-sm"
         )}
+        style={{ backgroundColor: "#1C2B66" }}
       >
         <div className="container-site">
-          <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
+          <div className="flex items-center justify-between h-14 sm:h-16 lg:h-[70px]">
+            {/* Logo */}
             <Link href="/" className="flex items-center gap-2 sm:gap-3 group min-w-0">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center shadow-md group-hover:shadow-glow-accent transition-all duration-300 flex-shrink-0">
-                <span className="text-primary font-bold text-base sm:text-lg font-display">
-                  B
-                </span>
-              </div>
               <div className="min-w-0">
-                <p
-                  className={cn(
-                    "font-bold font-display leading-tight text-sm sm:text-base truncate",
-                    onHero && !isMobileOpen
-                      ? "text-white"
-                      : "text-slate-900 dark:text-white"
-                  )}
-                >
+                <p className="font-bold font-display leading-tight text-base sm:text-lg text-white truncate uppercase italic">
                   Brivaldo Marques
-                </p>
-                <p
-                  className={cn(
-                    "text-[10px] sm:text-xs truncate",
-                    onHero && !isMobileOpen
-                      ? "text-white/70"
-                      : "text-slate-500 dark:text-slate-400"
-                  )}
-                >
-                  Vereador de Maceió
                 </p>
               </div>
             </Link>
 
+            {/* Desktop Nav */}
             <nav className="hidden lg:flex items-center gap-1">
               {NAVIGATION_ITEMS.map((item) => (
                 <Link
@@ -99,13 +72,9 @@ export default function Header() {
                   href={item.href}
                   className={cn(
                     "px-3 py-2 rounded-lg text-sm font-medium transition-colors",
-                    onHero
-                      ? "text-white/80 hover:text-white hover:bg-white/10"
-                      : "nav-link hover:bg-slate-100 dark:hover:bg-slate-800",
-                    pathname === item.href &&
-                      (onHero
-                        ? "text-accent-400 bg-white/10"
-                        : "text-accent-600 dark:text-accent-400 bg-accent-50 dark:bg-accent-900/20")
+                    pathname === item.href
+                      ? "text-accent-400 bg-white/10"
+                      : "text-white/80 hover:text-white hover:bg-white/10"
                   )}
                 >
                   {item.label}
@@ -113,42 +82,35 @@ export default function Header() {
               ))}
             </nav>
 
-            <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
-              {mounted && (
-                <button
-                  type="button"
-                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                  className={cn(
-                    "p-2 rounded-lg transition-colors",
-                    onHero && !isMobileOpen
-                      ? "text-white/80 hover:bg-white/10"
-                      : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
-                  )}
-                  aria-label="Alternar tema"
-                >
-                  {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-                </button>
-              )}
+            {/* CTAs */}
+            <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+              {/* Apoiar button — outline style */}
+              <Link
+                href="/seja-apoiador"
+                id="header-apoiar-btn"
+                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-white/40 text-white text-sm font-semibold hover:bg-white/10 transition-all duration-200"
+              >
+                Apoiar
+              </Link>
 
+              {/* WhatsApp CTA */}
               <a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden sm:flex btn-whatsapp text-sm py-2 px-4"
+                id="header-whatsapp-btn"
+                className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all duration-200 hover:opacity-90"
+                style={{ backgroundColor: "#EFC95E", color: "#1C2B66" }}
               >
                 <WhatsAppIcon className="w-4 h-4" />
                 WhatsApp
               </a>
 
+              {/* Mobile menu button */}
               <button
                 type="button"
                 onClick={() => setIsMobileOpen((open) => !open)}
-                className={cn(
-                  "lg:hidden p-2 rounded-lg transition-colors",
-                  onHero && !isMobileOpen
-                    ? "text-white hover:bg-white/10"
-                    : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
-                )}
+                className="lg:hidden p-2 rounded-lg text-white hover:bg-white/10 transition-colors"
                 aria-label="Menu"
                 aria-expanded={isMobileOpen}
               >
@@ -159,6 +121,7 @@ export default function Header() {
         </div>
       </motion.header>
 
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileOpen ? (
           <motion.div
@@ -171,7 +134,7 @@ export default function Header() {
           >
             <button
               type="button"
-              className="absolute inset-0 bg-black/50 backdrop-blur-sm border-0 cursor-pointer"
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm border-0 cursor-pointer"
               onClick={() => setIsMobileOpen(false)}
               aria-label="Fechar menu"
             />
@@ -181,16 +144,15 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 28, stiffness: 260 }}
-              className="absolute right-0 top-0 bottom-0 w-[min(20rem,88vw)] bg-white dark:bg-slate-950 shadow-2xl flex flex-col pt-14"
+              className="absolute right-0 top-0 bottom-0 w-[min(20rem,88vw)] flex flex-col pt-14"
+              style={{ backgroundColor: "#1C2B66" }}
             >
-              <div className="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-800">
-                <span className="font-bold font-display text-slate-900 dark:text-white">
-                  Menu
-                </span>
+              <div className="flex items-center justify-between p-4 border-b border-white/10">
+                <span className="font-bold font-display text-white">Menu</span>
                 <button
                   type="button"
                   onClick={() => setIsMobileOpen(false)}
-                  className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+                  className="p-2 rounded-lg hover:bg-white/10 text-white"
                   aria-label="Fechar"
                 >
                   <X size={20} />
@@ -211,23 +173,31 @@ export default function Header() {
                       className={cn(
                         "flex items-center justify-between px-4 py-3 rounded-xl font-medium transition-colors",
                         pathname === item.href
-                          ? "bg-accent-50 dark:bg-accent-900/20 text-accent-600 dark:text-accent-400"
-                          : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900"
+                          ? "bg-white/20 text-accent-400"
+                          : "text-white/80 hover:bg-white/10 hover:text-white"
                       )}
                     >
                       {item.label}
-                      <ChevronRight size={16} className="text-slate-400" />
+                      <ChevronRight size={16} className="text-white/40" />
                     </Link>
                   </motion.div>
                 ))}
               </nav>
 
-              <div className="p-4 border-t border-slate-100 dark:border-slate-800">
+              <div className="p-4 space-y-3 border-t border-white/10">
+                <Link
+                  href="/seja-apoiador"
+                  onClick={() => setIsMobileOpen(false)}
+                  className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl border border-white/40 text-white font-semibold hover:bg-white/10 transition-all"
+                >
+                  Quero Apoiar
+                </Link>
                 <a
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-whatsapp w-full justify-center"
+                  className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl font-bold transition-all"
+                  style={{ backgroundColor: "#EFC95E", color: "#1C2B66" }}
                 >
                   <WhatsAppIcon className="w-5 h-5" />
                   Fale pelo WhatsApp

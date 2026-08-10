@@ -15,6 +15,7 @@ import {
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { Toaster } from "react-hot-toast";
 
 export default function AdminLayout({
   children,
@@ -47,6 +48,7 @@ export default function AdminLayout({
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex">
+      <Toaster position="top-right" />
       {/* Sidebar */}
       <aside className="w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 hidden md:flex flex-col sticky top-0 h-screen">
         <div className="h-16 flex items-center px-6 border-b border-slate-200 dark:border-slate-800">

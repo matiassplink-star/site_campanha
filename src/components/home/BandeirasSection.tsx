@@ -12,7 +12,7 @@ export default function BandeirasSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="bandeiras" ref={ref} className="py-24 bg-slate-50 dark:bg-slate-950">
+    <section id="bandeiras" ref={ref} className="py-24" style={{ backgroundColor: "#ffffff" }}>
       <div className="container-site">
         {/* Header */}
         <motion.div
@@ -21,12 +21,12 @@ export default function BandeirasSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <div className="section-line mx-auto" />
-          <h2 className="section-title">
+          <p className="text-xs font-bold uppercase tracking-[0.15em] mb-3" style={{ color: "#1C2B66" }}>NOSSAS CAUSAS</p>
+          <h2 className="text-3xl sm:text-4xl font-black italic font-display mb-4" style={{ color: "#1C2B66" }}>
             Nossas{" "}
-            <span className="gradient-text">Bandeiras</span>
+            <span style={{ background: "linear-gradient(90deg, #EFC95E, #D4A93A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Bandeiras</span>
           </h2>
-          <p className="section-subtitle mx-auto text-center">
+          <p className="text-slate-500 text-lg max-w-2xl mx-auto">
             As causas que guiam cada decisão e cada voto no mandato de Brivaldo Marques.
           </p>
         </motion.div>

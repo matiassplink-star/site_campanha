@@ -1,9 +1,10 @@
+"use client";
+
 import Link from "next/link";
-import { MapPin, Phone, Heart, Mail } from "lucide-react";
+import { MapPin, Heart } from "lucide-react";
 import { NAVIGATION_ITEMS, SITE_CONFIG } from "@/lib/constants";
 import { generateWhatsAppUrl } from "@/lib/utils";
 
-// SVG inline para ícones de redes sociais (lucide-react removeu brand icons)
 function IconInstagram({ size = 16 }: { size?: number }) {
   return (
     <svg width={size} height={size} fill="currentColor" viewBox="0 0 24 24">
@@ -28,156 +29,76 @@ export default function Footer() {
   );
 
   return (
-    <footer className="bg-slate-950 text-slate-300">
-      {/* CTA Banner */}
-      <div className="bg-gradient-to-r from-primary-700 to-primary-600">
+    <footer style={{ backgroundColor: "#0A0F24" }} className="text-slate-300">
+      {/* CTA Banner — style Henrique Costa */}
+      <div style={{ background: "linear-gradient(135deg, #1C2B66 0%, #2A3F88 100%)" }}>
         <div className="container-site py-10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
-              <h3 className="text-2xl font-bold text-white font-display">
+              <h3 className="text-2xl font-black italic text-white font-display">
                 Faça parte dessa história
               </h3>
-              <p className="text-primary-100 mt-1">
+              <p className="text-slate-300 mt-1">
                 Juntos, construímos um Maceió mais justo e saudável.
               </p>
             </div>
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-shrink-0 inline-flex items-center gap-2 px-8 py-3 bg-accent-500 text-primary font-bold rounded-xl hover:bg-accent-400 transition-colors shadow-lg"
-            >
-              <IconWhatsApp size={20} />
-              Falar no WhatsApp
-            </a>
+            <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
+              <Link
+                href="/seja-apoiador"
+                id="footer-apoiar-btn"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold transition-all hover:opacity-90"
+                style={{ backgroundColor: "#EFC95E", color: "#1C2B66" }}
+              >
+                Entrar pro time
+              </Link>
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                id="footer-whatsapp-btn"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold border border-white/30 text-white hover:bg-white/10 transition-all"
+              >
+                <IconWhatsApp size={18} />
+                WhatsApp
+              </a>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Main Footer */}
       <div className="container-site py-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="flex flex-col items-center justify-center text-center">
           {/* Brand */}
-          <div className="lg:col-span-1">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center">
-                <span className="text-primary font-bold text-lg font-display">B</span>
-              </div>
-              <div>
-                <p className="font-bold text-white font-display">Brivaldo Marques</p>
-                <p className="text-xs text-slate-500">Vereador de Maceió</p>
-              </div>
-            </div>
-            <p className="text-sm text-slate-400 leading-relaxed mb-6">
-              Comprometido com a saúde pública e o futuro da juventude alagoana.
-              Juntos, transformamos Maceió.
+          <div className="mb-4">
+            <p className="font-bold font-display leading-tight text-xl sm:text-2xl text-white uppercase italic tracking-wider">
+              Brivaldo Marques
             </p>
-            {/* Social */}
-            <div className="flex items-center gap-3">
-              <a
-                href={SITE_CONFIG.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-slate-800 hover:bg-pink-600 flex items-center justify-center transition-colors text-slate-300"
-                aria-label="Instagram"
-              >
-                <IconInstagram size={16} />
-              </a>
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-slate-800 hover:bg-green-600 flex items-center justify-center transition-colors text-slate-300"
-                aria-label="WhatsApp"
-              >
-                <IconWhatsApp size={16} />
-              </a>
-            </div>
           </div>
-
-          {/* Links rápidos */}
-          <div>
-            <h4 className="font-semibold text-white mb-4 font-display">Links Rápidos</h4>
-            <ul className="space-y-2">
-              {NAVIGATION_ITEMS.slice(0, 5).map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-slate-400 hover:text-accent-400 transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Mais links */}
-          <div>
-            <h4 className="font-semibold text-white mb-4 font-display">Explore</h4>
-            <ul className="space-y-2">
-              {NAVIGATION_ITEMS.slice(5).map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-slate-400 hover:text-accent-400 transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <Link
-                  href="/politica-de-privacidade"
-                  className="text-sm text-slate-400 hover:text-accent-400 transition-colors"
-                >
-                  Política de Privacidade
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/termos-de-uso"
-                  className="text-sm text-slate-400 hover:text-accent-400 transition-colors"
-                >
-                  Termos de Uso
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contato */}
-          <div>
-            <h4 className="font-semibold text-white mb-4 font-display">Contato</h4>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <MapPin size={16} className="text-accent-500 mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-slate-400">Maceió, Alagoas</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="text-accent-500 flex-shrink-0">
-                  <IconInstagram size={16} />
-                </span>
-                <a
-                  href={SITE_CONFIG.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-slate-400 hover:text-pink-400 transition-colors"
-                >
-                  {SITE_CONFIG.instagramHandle}
-                </a>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone size={16} className="text-accent-500 flex-shrink-0" />
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-slate-400 hover:text-accent-400 transition-colors"
-                >
-                  Fale pelo WhatsApp
-                </a>
-              </li>
-            </ul>
+          <p className="text-sm text-slate-400 leading-relaxed mb-6 max-w-md mx-auto">
+            Comprometido com a saúde pública e o futuro da juventude alagoana.
+            Juntos, transformamos Maceió.
+          </p>
+          {/* Social */}
+          <div className="flex items-center justify-center gap-4">
+            <a
+              href={SITE_CONFIG.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 rounded-xl bg-slate-800 hover:bg-pink-600 flex items-center justify-center transition-colors text-slate-300"
+              aria-label="Instagram"
+            >
+              <IconInstagram size={20} />
+            </a>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 rounded-xl bg-slate-800 hover:bg-green-600 flex items-center justify-center transition-colors text-slate-300"
+              aria-label="WhatsApp"
+            >
+              <IconWhatsApp size={20} />
+            </a>
           </div>
         </div>
       </div>
@@ -185,10 +106,18 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-slate-800">
         <div className="container-site py-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p className="text-xs text-slate-500 text-center sm:text-left">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
+            <p className="text-xs text-slate-500 text-center lg:text-left">
               © {currentYear} Brivaldo Marques. Todos os direitos reservados.
             </p>
+            <div className="flex flex-wrap justify-center gap-4 text-xs text-slate-500">
+              <Link href="/politica-de-privacidade" className="hover:text-[#EFC95E] transition-colors">
+                Política de Privacidade
+              </Link>
+              <Link href="/termos-de-uso" className="hover:text-[#EFC95E] transition-colors">
+                Termos de Uso
+              </Link>
+            </div>
             <p className="text-xs text-slate-600 flex items-center gap-1">
               Desenvolvido com <Heart size={12} className="text-red-500" /> para Alagoas
             </p>
