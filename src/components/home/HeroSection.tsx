@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { ChevronDown, CheckCircle, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { SITE_CONFIG } from "@/lib/constants";
@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { apoiadorSchema, type ApoiadorFormData } from "@/lib/validations";
 import { generateWhatsAppUrl } from "@/lib/utils";
+import ParticlesBackground from "@/components/ui/ParticlesBackground";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -174,10 +175,7 @@ function HeroForm() {
       </div>
 
       {/* LGPD */}
-      <label
-        htmlFor="hero-lgpd"
-        className="flex items-start gap-2 cursor-pointer"
-      >
+      <label htmlFor="hero-lgpd" className="flex items-start gap-2 cursor-pointer">
         <input
           type="checkbox"
           id="hero-lgpd"
@@ -205,10 +203,7 @@ function HeroForm() {
       )}
 
       {/* WhatsApp authorization */}
-      <label
-        htmlFor="hero-whatsapp-auth"
-        className="flex items-start gap-2 cursor-pointer"
-      >
+      <label htmlFor="hero-whatsapp-auth" className="flex items-start gap-2 cursor-pointer">
         <input
           type="checkbox"
           id="hero-whatsapp-auth"
@@ -228,9 +223,11 @@ function HeroForm() {
         type="submit"
         id="hero-apoiador-submit-btn"
         disabled={isSubmitting}
-        className="w-full py-3.5 rounded-xl font-bold text-base transition-all hover:opacity-90 flex items-center justify-center gap-2 shadow-lg"
+        className="w-full py-3.5 rounded-xl font-bold text-base transition-all hover:opacity-90 flex items-center justify-center gap-2 shadow-lg relative overflow-hidden"
         style={{ backgroundColor: "#2563eb", color: "white" }}
       >
+        {/* Shine sweep on button */}
+        <span className="absolute inset-0 pointer-events-none hero-btn-shine" />
         {isSubmitting ? (
           <>
             <Loader2 size={18} className="animate-spin" />
@@ -251,25 +248,31 @@ export default function HeroSection() {
       className="relative min-h-[100svh] flex items-center overflow-hidden"
       style={{ backgroundColor: "#1C2B66" }}
     >
-      {/* Diagonal geometric elements — inspired by Henrique Costa */}
+      {/* Animated particles */}
+      <ParticlesBackground count={45} />
+
       {/* Diagonal geometric elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ backgroundColor: "#0f3a8b" }}>
         {/* Green shape */}
-        <div 
-          className="absolute -top-10 -bottom-10 left-[15%] lg:left-[25%] w-[35%] shadow-2xl" 
-          style={{ backgroundColor: "#12963f", transform: "skewX(-15deg)", transformOrigin: "bottom" }} 
+        <motion.div
+          animate={{ skewX: [-15, -14, -15] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-10 -bottom-10 left-[15%] lg:left-[25%] w-[35%] shadow-2xl"
+          style={{ backgroundColor: "#12963f", transformOrigin: "bottom" }}
         />
         {/* Yellow shape */}
-        <div 
-          className="absolute -top-10 -bottom-10 left-[45%] lg:left-[55%] w-[12%] shadow-xl" 
-          style={{ backgroundColor: "#f5ca12", transform: "skewX(-15deg)", transformOrigin: "bottom" }} 
+        <motion.div
+          animate={{ skewX: [-15, -16, -15] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-10 -bottom-10 left-[45%] lg:left-[55%] w-[12%] shadow-xl"
+          style={{ backgroundColor: "#f5ca12", transformOrigin: "bottom" }}
         />
         {/* Light Blue shape */}
-        <div 
-          className="absolute -top-10 -bottom-10 left-[55%] lg:left-[65%] right-[-50%] shadow-2xl" 
-          style={{ backgroundColor: "#1565d8", transform: "skewX(-15deg)", transformOrigin: "bottom" }} 
+        <div
+          className="absolute -top-10 -bottom-10 left-[55%] lg:left-[65%] right-[-50%] shadow-2xl"
+          style={{ backgroundColor: "#1565d8", transform: "skewX(-15deg)", transformOrigin: "bottom" }}
         />
-        
+
         {/* Subtle grid */}
         <div
           className="absolute inset-0 opacity-[0.03]"
@@ -284,26 +287,27 @@ export default function HeroSection() {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 min-h-[calc(100svh-5rem)]">
 
           {/* Left: Text content */}
-          <div className="w-full lg:w-[45%] text-center lg:text-left z-20 pb-6 lg:pb-0">
-            {/* Badge */}
+          <div className="w-full lg:w-[45%] text-center lg:text-left z-20 pb-2 lg:pb-0">
+            {/* Badge with shimmer */}
             <motion.div
               custom={0}
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-bold mb-6 sm:mb-8"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-bold mb-5 sm:mb-6 relative overflow-hidden"
               style={{ backgroundColor: "rgba(255,255,255,0.2)", color: "white" }}
             >
-              Agora é oficial • Alagoas 2026
+              <span className="relative z-10">Agora é oficial • Alagoas 2026</span>
+              {/* shimmer sweep */}
+              <motion.span
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                animate={{ x: ["-100%", "200%"] }}
+                transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 3 }}
+              />
             </motion.div>
 
             {/* Headline */}
-            <motion.div
-              custom={1}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-            >
+            <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible">
               <h1 className="font-display font-black italic leading-[0.95] text-[2.5rem] xs:text-[3rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[5.5rem] uppercase mb-1" style={{ color: "#f5ca12" }}>
                 AGORA É
               </h1>
@@ -322,20 +326,25 @@ export default function HeroSection() {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="mt-6 text-lg sm:text-xl text-white font-bold italic leading-relaxed max-w-lg mx-auto lg:mx-0"
+              className="mt-4 sm:mt-6 text-base sm:text-xl text-white font-bold italic leading-relaxed max-w-lg mx-auto lg:mx-0"
             >
               &ldquo;Ensinar sempre foi minha missão.<br/>
               Transformar será meu legado.&rdquo;
             </motion.p>
 
-            {/* Candidato photo on mobile */}
+            {/* Candidato photo on mobile — LARGER & BETTER PROPORTIONED */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.15 }}
-              className="mt-8 flex justify-center lg:hidden"
+              className="mt-6 flex justify-center lg:hidden"
             >
-              <div className="relative w-[160px] xs:w-[180px] sm:w-[220px]">
+              <div className="relative w-[200px] xs:w-[230px] sm:w-[280px]">
+                {/* Glow behind photo on mobile */}
+                <div
+                  className="absolute -inset-4 rounded-full blur-2xl opacity-30"
+                  style={{ background: "radial-gradient(circle, #f5ca12, #1C2B66)" }}
+                />
                 <Image
                   src="/images/brivaldo-marques.png"
                   alt="Brivaldo Marques"
@@ -343,7 +352,7 @@ export default function HeroSection() {
                   height={611}
                   priority
                   quality={100}
-                  className="w-full h-auto block drop-shadow-2xl"
+                  className="w-full h-auto block drop-shadow-2xl relative z-10"
                 />
               </div>
             </motion.div>
@@ -356,6 +365,11 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="hidden lg:block absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] xl:w-[500px] z-10 pointer-events-none"
           >
+            {/* Desktop glow */}
+            <div
+              className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-32 blur-3xl opacity-40"
+              style={{ background: "radial-gradient(ellipse, #f5ca12, transparent)" }}
+            />
             <Image
               src="/images/brivaldo-marques.png"
               alt="Brivaldo Marques"
@@ -363,7 +377,7 @@ export default function HeroSection() {
               height={800}
               priority
               quality={100}
-              className="w-full h-auto block drop-shadow-2xl"
+              className="w-full h-auto block drop-shadow-2xl relative z-10"
             />
           </motion.div>
 
@@ -373,8 +387,10 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="w-full bg-white rounded-2xl shadow-2xl p-6 sm:p-7"
+              className="w-full bg-white rounded-2xl shadow-2xl p-5 sm:p-7 relative overflow-hidden"
             >
+              {/* Subtle top accent line */}
+              <div className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" style={{ background: "linear-gradient(90deg, #1C2B66, #f5ca12, #12963f)" }} />
               <HeroForm />
             </motion.div>
           </div>
@@ -396,6 +412,18 @@ export default function HeroSection() {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Button shine CSS */}
+      <style jsx global>{`
+        @keyframes heroBtnShine {
+          0% { transform: translateX(-100%) skewX(-15deg); }
+          100% { transform: translateX(300%) skewX(-15deg); }
+        }
+        .hero-btn-shine {
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+          animation: heroBtnShine 3s infinite;
+        }
+      `}</style>
     </section>
   );
 }
