@@ -168,12 +168,13 @@ export default function AdminApoiadoresPage() {
     });
 
     result.sort((a, b) => {
-      let aVal = a[sortField] ?? "";
-      let bVal = b[sortField] ?? "";
       if (sortField === "created_at") {
-        aVal = new Date(a.created_at).getTime();
-        bVal = new Date(b.created_at).getTime();
+        const aTime = new Date(a.created_at).getTime();
+        const bTime = new Date(b.created_at).getTime();
+        return sortOrder === "asc" ? aTime - bTime : bTime - aTime;
       }
+      const aVal = String(a[sortField] ?? "");
+      const bVal = String(b[sortField] ?? "");
       if (aVal < bVal) return sortOrder === "asc" ? -1 : 1;
       if (aVal > bVal) return sortOrder === "asc" ? 1 : -1;
       return 0;

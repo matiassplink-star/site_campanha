@@ -36,6 +36,7 @@ export default function AdminLoginPage() {
 
     // Fallback: aceita qualquer email + senha >= 4 chars
     if (loggedIn || (email.length > 3 && password.length >= 4)) {
+      document.cookie = "admin_session=true; path=/; max-age=86400";
       toast.success("Login realizado com sucesso!");
       router.push("/admin/dashboard");
       router.refresh();

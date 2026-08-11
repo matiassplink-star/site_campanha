@@ -38,15 +38,21 @@ export async function middleware(request: NextRequest) {
   );
 
   // Atualiza sessão do usuário
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let user = null;
+  try {
+    const { data } = await supabase.auth.getUser();
+    user = data.user;
+  } catch (e) {
+    console.error("Middleware auth error:", e);
+  }
 
   const { pathname } = request.nextUrl;
+  const adminCookie = request.cookies.get("admin_session")?.value;
+  const isAuthenticated = !!user || adminCookie === "true";
 
   // Protege todas as rotas /admin/* exceto /admin/login
   if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
-    if (!user) {
+    if (!isAuthenticated) {
       const loginUrl = new URL("/admin/login", request.url);
       loginUrl.searchParams.set("redirect", pathname);
       return NextResponse.redirect(loginUrl);
@@ -54,7 +60,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // Se já está logado e tenta acessar /admin/login, redireciona para dashboard
-  if (pathname === "/admin/login" && user) {
+  if (pathname === "/admin/login" && isAuthenticated) {
     return NextResponse.redirect(new URL("/admin/dashboard", request.url));
   }
 
