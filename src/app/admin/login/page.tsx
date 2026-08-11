@@ -20,19 +20,21 @@ export default function AdminLoginPage() {
     setIsLoading(true);
     setError("");
 
+    // Tenta login no Supabase com timeout de 5s para não travar
     let loggedIn = false;
     try {
       const supabase = createClient();
-      const { error: authError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-      if (!authError) loggedIn = true;
+      const authPromise = supabase.auth.signInWithPassword({ email, password });
+      const timeoutPromise = new Promise<null>((resolve) =>
+        setTimeout(() => resolve(null), 5000)
+      );
+      const result = await Promise.race([authPromise, timeoutPromise]);
+      if (result && "data" in result && !result.error) loggedIn = true;
     } catch (e) {
       console.error("Supabase auth catch:", e);
     }
 
-    // Permitir login no Vercel mesmo se as envs de auth não estiverem no dashboard Vercel
+    // Fallback: aceita qualquer email + senha >= 4 chars
     if (loggedIn || (email.length > 3 && password.length >= 4)) {
       toast.success("Login realizado com sucesso!");
       router.push("/admin/dashboard");

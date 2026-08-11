@@ -44,18 +44,28 @@ function HeroForm() {
 
   const onSubmit = async (data: ApoiadorFormData) => {
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 8000);
+
       const response = await fetch("/api/apoiador", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
+        signal: controller.signal,
       });
+      clearTimeout(timeoutId);
+
       if (!response.ok) throw new Error("Erro ao salvar cadastro");
       setRegisteredName(data.name.split(" ")[0]);
       setSubmitted(true);
       reset();
       toast.success("Cadastro realizado! Bem-vindo(a) ao time!");
-    } catch {
-      toast.error("Erro ao realizar cadastro. Tente pelo WhatsApp.");
+    } catch (err: unknown) {
+      if (err instanceof Error && err.name === "AbortError") {
+        toast.error("Tempo esgotado. Tente novamente ou entre pelo WhatsApp.");
+      } else {
+        toast.error("Erro ao realizar cadastro. Tente pelo WhatsApp.");
+      }
     }
   };
 

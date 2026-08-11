@@ -6,7 +6,6 @@ import AboutSection from "@/components/home/AboutSection";
 import VideoSection from "@/components/home/VideoSection";
 import BandeirasSection from "@/components/home/BandeirasSection";
 import BlogSection from "@/components/home/BlogSection";
-import ContactSection from "@/components/home/ContactSection";
 import RegionSeoSection from "@/components/home/RegionSeoSection";
 import { buildPageMetadata, DEFAULT_DESCRIPTION, DEFAULT_TITLE } from "@/lib/seo";
 
@@ -25,7 +24,6 @@ export default function HomePage() {
       <VideoSection />
       <BandeirasSection />
       <BlogSection />
-      <ContactSection />
       <Footer />
     </main>
   );
