@@ -14,7 +14,7 @@ export const metadata: Metadata = buildPageMetadata({
 
 const achievements = [
   { label: "Votos em 2024", value: "8.671", description: "Reeleição histórica em Maceió" },
-  { label: "Anos no Mandato", value: "+7 anos", description: "Dedicação e trabalho comunitário" },
+  { label: "Anos no Mandato", value: "+6 anos", description: "Dedicação e trabalho comunitário" },
   { label: "Bandeiras Principais", value: "Saúde & Juventude", description: "Foco nas pessoas" },
 ];
 
@@ -87,7 +87,7 @@ export default function SobrePage() {
                   <p className="text-xs text-slate-500 font-medium">Votos em 2024</p>
                 </div>
                 <div className="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-sm text-center">
-                  <p className="text-2xl font-black text-accent-500 font-display">+7 Anos</p>
+                  <p className="text-2xl font-black text-accent-500 font-display">+6 Anos</p>
                   <p className="text-xs text-slate-500 font-medium">Liderança Comunitária</p>
                 </div>
               </div>

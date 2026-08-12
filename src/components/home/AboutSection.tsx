@@ -214,7 +214,7 @@ export default function AboutSection() {
                   className="absolute -left-3 sm:-left-6 bottom-12 bg-white rounded-xl p-3 sm:p-4 shadow-xl border border-slate-100 hidden sm:block"
                 >
                   <div className="text-center">
-                    <p className="font-black text-2xl" style={{ color: "#10B981" }}>+7 anos</p>
+                    <p className="font-black text-2xl" style={{ color: "#10B981" }}>+6 anos</p>
                     <p className="text-xs text-slate-500 font-medium">em mandato</p>
                   </div>
                 </motion.div>
@@ -226,7 +226,7 @@ export default function AboutSection() {
                     <p className="text-xs text-slate-500">votos em 2024</p>
                   </div>
                   <div className="bg-white rounded-xl px-4 py-3 shadow-md border border-slate-100 text-center">
-                    <p className="font-black text-xl" style={{ color: "#10B981" }}>+7 anos</p>
+                    <p className="font-black text-xl" style={{ color: "#10B981" }}>+6 anos</p>
                     <p className="text-xs text-slate-500">em mandato</p>
                   </div>
                 </div>

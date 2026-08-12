@@ -234,7 +234,7 @@ function HeroForm() {
             Cadastrando...
           </>
         ) : (
-          "Quero entrar pro time"
+          "Quero fazer Parte desse time"
         )}
       </button>
     </form>
@@ -327,10 +327,8 @@ export default function HeroSection() {
               initial="hidden"
               animate="visible"
               className="mt-4 sm:mt-6 text-base sm:text-xl text-white font-bold italic leading-relaxed max-w-lg mx-auto lg:mx-0"
-            >
-              &ldquo;Ensinar sempre foi minha missão.<br/>
-              Transformar será meu legado.&rdquo;
-            </motion.p>
+              &ldquo;Cuidar de perto. Transforma de verdade.<br/>
+              Cuidar faz parte de quem sou. Transformar é o que me move.&rdquo;
 
             {/* Candidato photo on mobile — LARGER & BETTER PROPORTIONED */}
             <motion.div

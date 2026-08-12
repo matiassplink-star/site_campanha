@@ -8,7 +8,7 @@ export default function ConfiguracoesClient() {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     candidateName: "Brivaldo Marques",
-    slogan: "Ensinar sempre foi minha missão. Transformar será meu legado.",
+    slogan: "Cuidar de perto. Transforma de verdade. Cuidar faz parte de quem sou. Transformar é o que me move.",
     whatsapp: "82999999999",
     instagram: "https://instagram.com/brivaldomarques",
     facebook: "https://facebook.com/brivaldomarques",
