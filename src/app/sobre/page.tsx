@@ -8,14 +8,14 @@ import { Award, Heart, Shield, Sparkles, CheckCircle2, Play } from "lucide-react
 export const metadata: Metadata = buildPageMetadata({
   title: "Sobre Brivaldo Marques — Vereador de Maceió e Alagoas",
   description:
-    "Conheça Brivaldo Marques, Vereador de Maceió e liderança de Alagoas. Sua trajetória, bandeiras da Saúde, Juventude e ações por todo o estado.",
+    "Conheça Brivaldo Marques, Vereador de Maceió e liderança de Alagoas. Sua trajetória, bandeiras da Saúde, Esporte, Juventude e ações por todo o estado.",
   path: "/sobre",
 });
 
 const achievements = [
   { label: "Votos em 2024", value: "8.671", description: "Reeleição histórica em Maceió" },
   { label: "Anos no Mandato", value: "+6 anos", description: "Dedicação e trabalho comunitário" },
-  { label: "Bandeiras Principais", value: "Saúde & Juventude", description: "Foco nas pessoas" },
+  { label: "Bandeiras Principais", value: "Saúde, Esporte & Juventude", description: "Foco nas pessoas" },
 ];
 
 const timelineEvents = [
@@ -100,7 +100,7 @@ export default function SobrePage() {
                   Origens e Formação
                 </h2>
                 <p className="text-slate-600 leading-relaxed">
-                  Natural de Colônia Leopoldina, <strong className="text-slate-900">Brivaldo Marques Silva Neto</strong> tem 32 anos, é casado e pai orgulhoso do João Arthur e do Lucca. Formado em Fisioterapia pela UNCISAL (Universidade Estadual de Ciências da Saúde de Alagoas), aprendeu na saúde a importância do cuidado, da empatia e do olhar atento às necessidades do próximo.
+                  Natural de Colônia Leopoldina, <strong className="text-slate-900">Brivaldo Marques Silva Neto</strong> tem 33 anos, é casado com Raphaella Tenório e pai orgulhoso do João Arthur, Lucca e Benício. Formado em Fisioterapia pela UNCISAL (Universidade Estadual de Ciências da Saúde de Alagoas), aprendeu na saúde a importância do cuidado, da empatia e do olhar atento às necessidades do próximo.
                 </p>
                 <p className="text-slate-600 leading-relaxed">
                   Sua caminhada pública começou na comunidade: em 2017 foi eleito Prefeito Comunitário do Benedito Bentes, o maior bairro da capital alagoana. Ali, esteve lado a lado com a população criando projetos de esporte, cultura e assistência social.

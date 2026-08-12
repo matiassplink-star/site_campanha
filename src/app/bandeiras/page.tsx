@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Bandeiras — Saúde e Juventude em Maceió e Alagoas",
+  title: "Bandeiras — Saúde, Esporte e Juventude em Maceió e Alagoas",
   description:
     "Bandeiras prioritárias de Brivaldo Marques: Saúde pública e Juventude para Maceió, Região Metropolitana e todos os municípios de Alagoas.",
   path: "/bandeiras",
@@ -20,7 +20,7 @@ export default function BandeirasPage() {
             Nossas <span className="text-accent-500">Bandeiras</span>
           </h1>
           <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-            Saúde e Juventude — prioridades para Maceió, a região metropolitana
+            Saúde, Esporte e Juventude — prioridades para Maceió, a região metropolitana
             e Alagoas.
           </p>
           <div className="w-24 h-1 bg-accent-500 rounded-full mx-auto mb-10" />

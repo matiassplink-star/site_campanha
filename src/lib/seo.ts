@@ -171,10 +171,10 @@ export const SEO_KEYWORDS: string[] = [
 ];
 
 export const DEFAULT_DESCRIPTION =
-  "Brivaldo Marques, Vereador de Maceió e pré-candidato a Deputado Estadual por Alagoas. Saúde e Juventude para Maceió, região metropolitana e todos os municípios alagoanos.";
+  "Brivaldo Marques, Vereador de Maceió e pré-candidato a Deputado Estadual por Alagoas. Saúde, Esporte e Juventude para Maceió, região metropolitana e todos os municípios alagoanos.";
 
 export const DEFAULT_TITLE =
-  "Brivaldo Marques | Vereador de Maceió e Alagoas — Saúde e Juventude";
+  "Brivaldo Marques | Vereador de Maceió e Alagoas — Saúde, Esporte e Juventude";
 
 /** Lista legível de cidades para textos on-page */
 export function listaCidadesMetropole(): string {

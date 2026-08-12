@@ -39,7 +39,7 @@ const timeline = [
     ano: "2020",
     titulo: "Eleito Vereador de Maceió — 4.890 votos",
     descricao:
-      "Ampliou sua missão ao ser eleito Vereador de Maceió com 4.890 votos, levando para a Câmara Municipal as demandas da população e suas bandeiras de Saúde e Juventude.",
+      "Ampliou sua missão ao ser eleito Vereador de Maceió com 4.890 votos, levando para a Câmara Municipal as demandas da população e suas bandeiras de Saúde, Esporte e Juventude.",
     emoji: "🗳️",
     destaque: true,
   },

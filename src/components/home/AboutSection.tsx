@@ -261,14 +261,14 @@ export default function AboutSection() {
               <div className="space-y-4 text-slate-600 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
                 <p>
                   Natural de Colônia Leopoldina,{" "}
-                  <strong className="text-slate-800">Brivaldo Marques Silva Neto</strong>, 32 anos,
-                  casado, pai de dois filhos — João Arthur e Lucca —, formado em
+                  <strong className="text-slate-800">Brivaldo Marques Silva Neto</strong>, 33 anos,
+                  casado com Raphaella Tenório, pai de três filhos — João Arthur, Lucca e Benício —, formado em
                   Fisioterapia pela UNCISAL.
                 </p>
                 <p>
                   Em 2020, eleito Vereador de Maceió com 4.890 votos. Em 2024, foi{" "}
                   <strong className="text-slate-800">reeleito com expressivos 8.671 votos</strong>,
-                  reafirmando sua missão pelas bandeiras de Saúde e Juventude.
+                  reafirmando sua missão pelas bandeiras de Saúde, Esporte e Juventude.
                 </p>
               </div>
 

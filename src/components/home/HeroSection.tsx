@@ -326,6 +326,7 @@ export default function HeroSection() {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
+              className="mt-4 sm:mt-6 text-base sm:text-xl text-white font-bold italic leading-relaxed max-w-lg mx-auto lg:mx-0"
             >
               &ldquo;Cuidar de perto. Transforma de verdade.<br/>
               Cuidar faz parte de quem sou. Transformar é o que me move.&rdquo;

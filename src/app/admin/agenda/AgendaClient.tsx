@@ -17,7 +17,7 @@ export default function AgendaClient() {
   const [events, setEvents] = useState<EventItem[]>([
     {
       id: "1",
-      title: "Caminhada de Saúde e Juventude",
+      title: "Caminhada de Saúde, Esporte e Juventude",
       date: "2026-08-15",
       time: "09:00",
       location: "Benedito Bentes — Praça Padre Cícero",

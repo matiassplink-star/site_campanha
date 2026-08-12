@@ -24,7 +24,7 @@ export default function RegionSeoSection() {
         </h2>
         <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed mb-4">
           Brivaldo Marques, Vereador de Maceió e pré-candidato a Deputado
-          Estadual, trabalha por Saúde e Juventude em Maceió e em toda a
+          Estadual, trabalha por Saúde, Esporte e Juventude em Maceió e em toda a
           Região Metropolitana de Maceió — incluindo{" "}
           <strong className="font-semibold text-slate-800 dark:text-slate-200">
             {listaCidadesMetropole()}
