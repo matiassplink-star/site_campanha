@@ -243,120 +243,122 @@ function HeroForm() {
 
 export default function HeroSection() {
   return (
-    <section
-      id="home"
-      className="relative min-h-[100svh] flex items-center overflow-hidden"
-      style={{ backgroundColor: "#1565D8" }}
-    >
-      {/* Animated particles */}
-      <ParticlesBackground count={30} />
-
-      {/* Campaign banner — full bleed background */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/foto-campanha.jpg"
-          alt="Brivaldo Marques — Deputado Estadual 22000 — Juventude com Voz e Vez"
-          fill
-          priority
-          quality={95}
-          className="object-cover object-center"
-          sizes="100vw"
-        />
-        {/* Right-side overlay so form card is readable — transparent on left, dark on right */}
-        <div
-          className="absolute inset-0 hidden lg:block"
-          style={{
-            background: "linear-gradient(90deg, transparent 0%, transparent 45%, rgba(10,30,90,0.75) 70%, rgba(10,30,90,0.88) 100%)",
-          }}
-        />
-        {/* Mobile: uniform overlay */}
-        <div
-          className="absolute inset-0 lg:hidden"
-          style={{ background: "rgba(13,71,161,0.52)" }}
-        />
-        {/* Bottom fade */}
-        <div
-          className="absolute bottom-0 left-0 right-0 h-20"
-          style={{ background: "linear-gradient(to top, rgba(10,30,90,0.5), transparent)" }}
-        />
-      </div>
-
-      <div className="container-site relative z-10 w-full pt-20 sm:pt-24 pb-10">
-        <div className="flex flex-col lg:flex-row items-center justify-end gap-8 lg:gap-12 min-h-[calc(100svh-5rem)]">
-
-          {/* Mobile only: headline above form (banner image is hidden on small screens) */}
-          <div className="w-full lg:hidden text-center z-20 pb-2">
-            <motion.div
-              custom={0}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-bold mb-4 relative overflow-hidden"
-              style={{ backgroundColor: "rgba(255,255,255,0.15)", color: "white", border: "1px solid rgba(255,255,255,0.3)" }}
-            >
-              <span className="relative z-10">Agora é oficial • Alagoas 2026</span>
-              <motion.span
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                animate={{ x: ["-100%", "200%"] }}
-                transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 3 }}
-              />
-            </motion.div>
-            <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible">
-              <h1 className="font-display font-black italic leading-[0.95] text-[2.2rem] xs:text-[2.8rem] sm:text-[3.5rem] uppercase mb-1" style={{ color: "#f5ca12" }}>
-                BRIVALDO
-              </h1>
-              <h1 className="font-display font-black italic leading-[0.95] text-[2.2rem] xs:text-[2.8rem] sm:text-[3.5rem] text-white uppercase mb-2">
-                MARQUES
-              </h1>
-              <p className="text-white font-display font-bold text-lg sm:text-xl uppercase tracking-wide">
-                <span style={{ color: "#f5ca12" }}>22000</span> · DEPUTADO ESTADUAL
-              </p>
-            </motion.div>
-          </div>
-
-          {/* Right: Form card — floats over the banner on desktop */}
-          <div className="w-full lg:w-[400px] xl:w-[430px] z-20">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="w-full bg-white rounded-2xl shadow-2xl p-5 sm:p-7 relative overflow-hidden"
-            >
-              {/* Top accent line */}
-              <div className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" style={{ background: "linear-gradient(90deg, #1565D8, #f5ca12, #1565D8)" }} />
-              <HeroForm />
-            </motion.div>
-          </div>
+    <>
+      {/* ─── MOBILE: foto em cima, form embaixo ─── */}
+      <div className="lg:hidden flex flex-col" style={{ backgroundColor: "#1565D8" }}>
+        {/* Foto da campanha — visível no topo */}
+        <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
+          <Image
+            src="/images/foto-campanha.jpg"
+            alt="Brivaldo Marques — Deputado Estadual 22000 — Juventude com Voz e Vez"
+            fill
+            priority
+            quality={95}
+            className="object-cover object-top"
+            sizes="100vw"
+          />
+          {/* Leve fade na base para transição suave */}
+          <div
+            className="absolute bottom-0 left-0 right-0 h-10"
+            style={{ background: "linear-gradient(to top, #1565D8, transparent)" }}
+          />
         </div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="hidden sm:flex absolute bottom-6 left-1/2 -translate-x-1/2 flex-col items-center gap-2"
-        >
-          <span className="text-white/40 text-xs">Rolar para baixo</span>
+        {/* Formulário abaixo da foto */}
+        <div className="px-4 pb-10 pt-2">
           <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="w-full bg-white rounded-2xl shadow-2xl relative overflow-hidden"
           >
-            <ChevronDown size={20} className="text-white/40" />
+            <div className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" style={{ background: "linear-gradient(90deg, #1565D8, #f5ca12, #1565D8)" }} />
+            <div className="p-5">
+              <HeroForm />
+            </div>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Button shine CSS */}
-      <style jsx global>{`
-        @keyframes heroBtnShine {
-          0% { transform: translateX(-100%) skewX(-15deg); }
-          100% { transform: translateX(300%) skewX(-15deg); }
-        }
-        .hero-btn-shine {
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-          animation: heroBtnShine 3s infinite;
-        }
-      `}</style>
-    </section>
+      {/* ─── DESKTOP: banner como fundo, form flutuando à direita ─── */}
+      <section
+        id="home"
+        className="relative min-h-[100svh] items-center overflow-hidden hidden lg:flex"
+        style={{ backgroundColor: "#1565D8" }}
+      >
+        <ParticlesBackground count={30} />
+
+        {/* Campaign banner — full bleed background */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/foto-campanha.jpg"
+            alt="Brivaldo Marques — Deputado Estadual 22000 — Juventude com Voz e Vez"
+            fill
+            priority
+            quality={95}
+            className="object-cover object-center"
+            sizes="100vw"
+          />
+          {/* Right-side overlay so form card is readable */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: "linear-gradient(90deg, transparent 0%, transparent 45%, rgba(10,30,90,0.75) 70%, rgba(10,30,90,0.88) 100%)",
+            }}
+          />
+          {/* Bottom fade */}
+          <div
+            className="absolute bottom-0 left-0 right-0 h-20"
+            style={{ background: "linear-gradient(to top, rgba(10,30,90,0.5), transparent)" }}
+          />
+        </div>
+
+        <div className="container-site relative z-10 w-full pt-24 pb-10">
+          <div className="flex flex-row items-center justify-end gap-12 min-h-[calc(100svh-5rem)]">
+            {/* Form card */}
+            <div className="w-[400px] xl:w-[430px] z-20">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+                className="w-full bg-white rounded-2xl shadow-2xl p-7 relative overflow-hidden"
+              >
+                <div className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" style={{ background: "linear-gradient(90deg, #1565D8, #f5ca12, #1565D8)" }} />
+                <HeroForm />
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Scroll indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5 }}
+            className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          >
+            <span className="text-white/40 text-xs">Rolar para baixo</span>
+            <motion.div
+              animate={{ y: [0, 6, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              <ChevronDown size={20} className="text-white/40" />
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* Button shine CSS */}
+        <style jsx global>{`
+          @keyframes heroBtnShine {
+            0% { transform: translateX(-100%) skewX(-15deg); }
+            100% { transform: translateX(300%) skewX(-15deg); }
+          }
+          .hero-btn-shine {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+            animation: heroBtnShine 3s infinite;
+          }
+        `}</style>
+      </section>
+    </>
   );
 }
+
