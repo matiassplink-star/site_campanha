@@ -246,151 +246,84 @@ export default function HeroSection() {
     <section
       id="home"
       className="relative min-h-[100svh] flex items-center overflow-hidden"
-      style={{ backgroundColor: "#1C2B66" }}
+      style={{ backgroundColor: "#1565D8" }}
     >
       {/* Animated particles */}
-      <ParticlesBackground count={45} />
+      <ParticlesBackground count={30} />
 
-      {/* Diagonal geometric elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ backgroundColor: "#0f3a8b" }}>
-        {/* Green shape */}
-        <motion.div
-          animate={{ skewX: [-15, -14, -15] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-10 -bottom-10 left-[15%] lg:left-[25%] w-[35%] shadow-2xl"
-          style={{ backgroundColor: "#12963f", transformOrigin: "bottom" }}
+      {/* Campaign banner — full bleed background */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/foto-campanha.jpg"
+          alt="Brivaldo Marques — Deputado Estadual 22000 — Juventude com Voz e Vez"
+          fill
+          priority
+          quality={95}
+          className="object-cover object-center"
+          sizes="100vw"
         />
-        {/* Yellow shape */}
-        <motion.div
-          animate={{ skewX: [-15, -16, -15] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-10 -bottom-10 left-[45%] lg:left-[55%] w-[12%] shadow-xl"
-          style={{ backgroundColor: "#f5ca12", transformOrigin: "bottom" }}
-        />
-        {/* Light Blue shape */}
+        {/* Right-side overlay so form card is readable — transparent on left, dark on right */}
         <div
-          className="absolute -top-10 -bottom-10 left-[55%] lg:left-[65%] right-[-50%] shadow-2xl"
-          style={{ backgroundColor: "#1565d8", transform: "skewX(-15deg)", transformOrigin: "bottom" }}
-        />
-
-        {/* Subtle grid */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 hidden lg:block"
           style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)`,
-            backgroundSize: "50px 50px",
+            background: "linear-gradient(90deg, transparent 0%, transparent 45%, rgba(10,30,90,0.75) 70%, rgba(10,30,90,0.88) 100%)",
           }}
+        />
+        {/* Mobile: uniform overlay */}
+        <div
+          className="absolute inset-0 lg:hidden"
+          style={{ background: "rgba(13,71,161,0.52)" }}
+        />
+        {/* Bottom fade */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-20"
+          style={{ background: "linear-gradient(to top, rgba(10,30,90,0.5), transparent)" }}
         />
       </div>
 
       <div className="container-site relative z-10 w-full pt-20 sm:pt-24 pb-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 min-h-[calc(100svh-5rem)]">
+        <div className="flex flex-col lg:flex-row items-center justify-end gap-8 lg:gap-12 min-h-[calc(100svh-5rem)]">
 
-          {/* Left: Text content */}
-          <div className="w-full lg:w-[45%] text-center lg:text-left z-20 pb-2 lg:pb-0">
-            {/* Badge with shimmer */}
+          {/* Mobile only: headline above form (banner image is hidden on small screens) */}
+          <div className="w-full lg:hidden text-center z-20 pb-2">
             <motion.div
               custom={0}
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-bold mb-5 sm:mb-6 relative overflow-hidden"
-              style={{ backgroundColor: "rgba(255,255,255,0.2)", color: "white" }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-bold mb-4 relative overflow-hidden"
+              style={{ backgroundColor: "rgba(255,255,255,0.15)", color: "white", border: "1px solid rgba(255,255,255,0.3)" }}
             >
               <span className="relative z-10">Agora é oficial • Alagoas 2026</span>
-              {/* shimmer sweep */}
               <motion.span
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
                 animate={{ x: ["-100%", "200%"] }}
                 transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 3 }}
               />
             </motion.div>
-
-            {/* Headline */}
             <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible">
-              <h1 className="font-display font-black italic leading-[0.95] text-[2.5rem] xs:text-[3rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[5.5rem] uppercase mb-1" style={{ color: "#f5ca12" }}>
-                AGORA É
+              <h1 className="font-display font-black italic leading-[0.95] text-[2.2rem] xs:text-[2.8rem] sm:text-[3.5rem] uppercase mb-1" style={{ color: "#f5ca12" }}>
+                BRIVALDO
               </h1>
-              <h1 className="font-display font-black italic leading-[0.95] text-[2.5rem] xs:text-[3rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[5.5rem] text-white uppercase mb-4">
-                OFICIAL
+              <h1 className="font-display font-black italic leading-[0.95] text-[2.2rem] xs:text-[2.8rem] sm:text-[3.5rem] text-white uppercase mb-2">
+                MARQUES
               </h1>
-              <p className="text-white font-display font-bold text-xl sm:text-2xl lg:text-3xl uppercase tracking-wide mb-2 leading-tight">
-                CANDIDATO A <br className="hidden lg:block" />
-                <span style={{ color: "#f5ca12" }}>DEPUTADO ESTADUAL</span>
+              <p className="text-white font-display font-bold text-lg sm:text-xl uppercase tracking-wide">
+                <span style={{ color: "#f5ca12" }}>22000</span> · DEPUTADO ESTADUAL
               </p>
-            </motion.div>
-
-            {/* Quote */}
-            <motion.p
-              custom={2}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              className="mt-4 sm:mt-6 text-base sm:text-xl text-white font-bold italic leading-relaxed max-w-lg mx-auto lg:mx-0"
-            >
-              &ldquo;Cuidar de perto. Transforma de verdade.<br/>
-              Cuidar faz parte de quem sou. Transformar é o que me move.&rdquo;
-            </motion.p>
-
-            {/* Candidato photo on mobile — LARGER & BETTER PROPORTIONED */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.15 }}
-              className="mt-6 flex justify-center lg:hidden"
-            >
-              <div className="relative w-[200px] xs:w-[230px] sm:w-[280px]">
-                {/* Glow behind photo on mobile */}
-                <div
-                  className="absolute -inset-4 rounded-full blur-2xl opacity-30"
-                  style={{ background: "radial-gradient(circle, #f5ca12, #1C2B66)" }}
-                />
-                <Image
-                  src="/images/brivaldo-marques.png"
-                  alt="Brivaldo Marques"
-                  width={409}
-                  height={611}
-                  priority
-                  quality={100}
-                  className="w-full h-auto block drop-shadow-2xl relative z-10"
-                />
-              </div>
             </motion.div>
           </div>
 
-          {/* Center: Photo (Desktop only) */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="hidden lg:block absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] xl:w-[500px] z-10 pointer-events-none"
-          >
-            {/* Desktop glow */}
-            <div
-              className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-32 blur-3xl opacity-40"
-              style={{ background: "radial-gradient(ellipse, #f5ca12, transparent)" }}
-            />
-            <Image
-              src="/images/brivaldo-marques.png"
-              alt="Brivaldo Marques"
-              width={600}
-              height={800}
-              priority
-              quality={100}
-              className="w-full h-auto block drop-shadow-2xl relative z-10"
-            />
-          </motion.div>
-
-          {/* Right: Form card */}
-          <div className="w-full lg:w-[400px] xl:w-[420px] z-20">
+          {/* Right: Form card — floats over the banner on desktop */}
+          <div className="w-full lg:w-[400px] xl:w-[430px] z-20">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
               className="w-full bg-white rounded-2xl shadow-2xl p-5 sm:p-7 relative overflow-hidden"
             >
-              {/* Subtle top accent line */}
-              <div className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" style={{ background: "linear-gradient(90deg, #1C2B66, #f5ca12, #12963f)" }} />
+              {/* Top accent line */}
+              <div className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" style={{ background: "linear-gradient(90deg, #1565D8, #f5ca12, #1565D8)" }} />
               <HeroForm />
             </motion.div>
           </div>

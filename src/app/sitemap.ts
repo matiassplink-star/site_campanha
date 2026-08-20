@@ -67,18 +67,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/#video`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.65,
-    },
-    {
-      url: `${baseUrl}/#regiao`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
       url: `${baseUrl}/politica-de-privacidade`,
       lastModified: now,
       changeFrequency: "yearly",

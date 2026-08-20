@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Outfit } from "next/font/google";
+import Script from "next/script";
 import "@/styles/globals.css";
 import { SITE_CONFIG } from "@/lib/constants";
 import {
@@ -39,16 +40,16 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.url),
   title: {
     default: DEFAULT_TITLE,
-    template: `%s | Brivaldo Marques — Maceió e Alagoas`,
+    template: `%s | Brivaldo Marques 22000 — Deputado Estadual Alagoas 2026`,
   },
   description: DEFAULT_DESCRIPTION,
   applicationName: SITE_CONFIG.name,
   keywords: SEO_KEYWORDS,
   authors: [{ name: "Brivaldo Marques", url: SITE_CONFIG.url }],
   creator: "Brivaldo Marques",
-  publisher: "Mandato Brivaldo Marques",
+  publisher: "Campanha Brivaldo Marques 22000 — Deputado Estadual 2026",
   category: "politics",
-  classification: "Política, Maceió, Alagoas",
+  classification: "Política, Eleições, Deputado Estadual, Maceió, Alagoas 2026",
   referrer: "origin-when-cross-origin",
   formatDetection: {
     email: false,
@@ -140,6 +141,19 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen antialiased">
+        {/* Google Analytics GA4 */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-LQMNHJ5HST"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-LQMNHJ5HST');
+          `}
+        </Script>
         <ThemeProvider>
           {children}
           <WhatsAppButton />
